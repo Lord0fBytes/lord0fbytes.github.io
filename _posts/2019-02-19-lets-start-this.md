@@ -25,11 +25,11 @@ So, format is (obviously a WIP):
   - [ ] Get Ubuntu dusted off
   - [ ] Clone GIT
   - [ ] Learn how to use Jekyll
-  - Update site data
-  - Learn Markdown (yes, I know)
-  - Publish page
-  - Publish first post
-  - Plan next post
+  - [ ] Update site data
+  - [ ] Learn Markdown (yes, I know)
+  - [ ] Publish page
+  - [ ] Publish first post
+  - [ ] Plan next post
 
 **DID I?:**
 
