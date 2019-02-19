@@ -31,8 +31,8 @@ So, format is (obviously a WIP):
   - [ ] Publish first post
   - [ ] Plan next post
 
-**DID I?:**
-
+**Status:** In-Progress
+<hr>
 ### Dust off Ubuntu
 Done, running Ubuntu 18.10 because I like GNOME.
 Running on custom desktop once used for gaming.
