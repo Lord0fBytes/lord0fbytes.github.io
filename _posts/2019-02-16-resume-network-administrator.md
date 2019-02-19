@@ -9,21 +9,20 @@ Justin Masse
 
 <hr>
 <p style="text-align:left;">195 McGregor Street <span style="float:right;">jmasse@webtron.me</span></p>
-
-Manchester, NH 03102                          https://webtron18.github.io/
-United States                           603-487-7263
+<p style="text-align:left;">Manchester, NH 03102<span style="float:right;">https://webtron18.github.io/</span></p>
+<p style="text-align:left;">United States<span style="float:right;">603-487-7263</span></p>                   
 <hr>
 
-Education
----------
+<hr>
+## Education
 
 2007-2012 (Incomplete)
 :   **B.S., Computer Science**; Daniel Webster College (Nashua, NH)
 
     *Major: Game, Simulation and Robotics*
 
-Experience
-----------
+    <hr>
+## Experience
 
 **Alene Candles, LLC. (2011-Present):**
 
@@ -45,10 +44,10 @@ links:
 * Item with [link](http://www.example.com). Links will work both in
   the html and pdf versions.
 
-Technical Experience
---------------------
+<hr>
+## Technical Experience
 
-My Cool Side Project
+#### My Cool Side Project
 :   For items which don't have a clear time ordering, a definition
     list can be used to have named items.
 
@@ -56,14 +55,14 @@ My Cool Side Project
       indentation levels in the markdown source.
     * Second item.
 
-Open Source
+#### Open Source
 :   List open source contributions here, perhaps placing emphasis on
     the project names, for example the **Linux Kernel**, where you
     implemented multithreading over a long weekend, or **node.js**
     (with [link](http://nodejs.org)) which was actually totally
     your idea...
 
-Programming Languages
+#### Programming Languages
 :   **first-lang:** Here, we have an itemization, where we only want
     to add descriptions to the first few items, but still want to
     mention some others together at the end. A format that works well
@@ -84,8 +83,9 @@ Programming Languages
 
 [ref]: https://github.com/githubuser/superlongprojectname
 
-Extra Section, Call it Whatever You Want
-----------------------------------------
+<hr>
+## Extra Section, Call it Whatever You Want
+
 
 * Human Languages:
 
