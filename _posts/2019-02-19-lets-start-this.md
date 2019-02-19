@@ -1,44 +1,47 @@
-
+---
+layout: default
+title: Let's Start This Thing
+---
 
 ## Where do I begin?
-I have always had trouble keeping up with projects. Mostly becuase I get very into them and work hard on them for many hours.
-After a couple days of this, however, I have to take a break and when I come back to it I have no idea where I was. 
-I also tend to have way to many project going on at once that never get finished because who in their right mind actually finishes 
-any program. 
+I have always had trouble keeping up with projects. Mostly because I get very into them and work hard on them for many hours.
+After a couple days of this, however, I have to take a break and when I come back to it I have no idea where I was.
+I also tend to have way to many project going on at once that never get finished because who in their right mind actually finishes
+any program.
 
-Any I am hoping that by 'bloggin' (it sounds very hipster outloud) I can use this as a means to track changes to my projects I make
-with code updates and with commentary so it will be easier to pick back up after a break. 
+Any I am hoping that by 'blogging' (it sounds very hipster out loud) I can use this as a means to track changes to my projects I make
+with code updates and with commentary so it will be easier to pick back up after a break.
 
-First step is to get a simple site going. Luckily I started this project a long time ago with GitHub.IO. Time to resurrect it. 
+First step is to get a simple site going. Luckily I started this project a long time ago with GitHub.IO. Time to resurrect it.
 I also need some format, but I do not want to put more than 60 seconds into it. Keeps me from going down that rabbit hole of
-"What's the best way of categorizing, sub-categorizing, taggings, future proofing, etc., etc., etc.".
-
-So, format is (obvisously a WIP):
-
+"What's the best way of categorizing, sub-categorizing, tagging, future proofing, etc., etc., etc.".
+<br>
+So, format is (obviously a WIP):
+<br>
 **Project:** github.io
 
-**TODO:** 
+**TODO:**
 
-  - Get Ubuntu dusted off
-  - Clone GIT
-  - Learn how to use Jekyll
+  - [ ] Get Ubuntu dusted off
+  - [ ] Clone GIT
+  - [ ] Learn how to use Jekyll
   - Update site data
   - Learn Markdown (yes, I know)
   - Publish page
   - Publish first post
   - Plan next post
-  
-**DID I?:** 
+
+**DID I?:**
 
 ### Dust off Ubuntu
-Done, running Ubuntu 18.10 because I like GNOME. 
-Running on custom desktop once used for gaming. 
+Done, running Ubuntu 18.10 because I like GNOME.
+Running on custom desktop once used for gaming.
 <br>Specs FWIW: <br>
 **RAM**: 16GB <br>
 **CPU**: Intel Core i5-4400 (ya, it's old and I am broke)<br>
 **OS**: Ubuntu 18.10 GNOME 3.30.1 64bit<br>
 **DISK**: 1TB main, 3TB data, 500GB SSD (Windows, you know for photography)<br>
-**GPU**: Nvidia Ti730 something<br>
+**GPU**: NVIDIA 730ti something<br>
 
 ### Clone Git
 Since I did a fresh install I needed to download it and configure it.
