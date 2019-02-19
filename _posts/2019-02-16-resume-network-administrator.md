@@ -8,20 +8,22 @@ Justin Masse
 ============
 
 <hr>
-<p style="text-align:left;">195 McGregor Street <span style="float:right;">jmasse@webtron.me</span></p>
-<p style="text-align:left;">Manchester, NH 03102<span style="float:right;">https://webtron18.github.io/</span></p>
-<p style="text-align:left;">United States<span style="float:right;">603-487-7263</span></p>                   
+<span style="float:left;">195 McGregor Street</span>
+<span style="float:right;">jmasse@webtron.me</span><br>
+<span style="float:left;">Manchester, NH 03102</span>
+<span style="float:right;">https://webtron18.github.io/</span><br>
+<span style="float:left;">United States</span>
+<span style="float:right;">603-487-7263</span><br>                   
 <hr>
 
-<hr>
 ## Education
 
 2007-2012 (Incomplete)
-:   **B.S., Computer Science**; Daniel Webster College (Nashua, NH)
+<br>**B.S., Computer Science**; Daniel Webster College (Nashua, NH)
 
     *Major: Game, Simulation and Robotics*
 
-    <hr>
+<hr>
 ## Experience
 
 **Alene Candles, LLC. (2011-Present):**
@@ -48,22 +50,22 @@ links:
 ## Technical Experience
 
 #### My Cool Side Project
-:   For items which don't have a clear time ordering, a definition
+For items which don't have a clear time ordering, a definition
     list can be used to have named items.
 
-    * These items can also contain lists, but you need to mind the
-      indentation levels in the markdown source.
-    * Second item.
+  * These items can also contain lists, but you need to mind the
+    indentation levels in the markdown source.
+  * Second item.
 
 #### Open Source
-:   List open source contributions here, perhaps placing emphasis on
+List open source contributions here, perhaps placing emphasis on
     the project names, for example the **Linux Kernel**, where you
     implemented multithreading over a long weekend, or **node.js**
     (with [link](http://nodejs.org)) which was actually totally
     your idea...
 
 #### Programming Languages
-:   **first-lang:** Here, we have an itemization, where we only want
+**first-lang:** Here, we have an itemization, where we only want
     to add descriptions to the first few items, but still want to
     mention some others together at the end. A format that works well
     here is a description list where the first few items have their
@@ -71,21 +73,20 @@ links:
     emphasized terms. Notice the reasonably nice page break in the pdf
     version, which wouldn't happen if we generated the pdf via html.
 
-:   **second-lang:** Description of your experience with second-lang,
+**second-lang:** Description of your experience with second-lang,
     perhaps again including a [link] [ref], this time placing the url
     reference elsewhere in the document to reduce clutter (see source
     file).
 
-:   **obscure-but-impressive-lang:** We both know this one's pushing
+**obscure-but-impressive-lang:** We both know this one's pushing
     it.
 
-:   Basic knowledge of **C**, **x86 assembly**, **forth**, **Common Lisp**
+Basic knowledge of **C**, **x86 assembly**, **forth**, **Common Lisp**
 
 [ref]: https://github.com/githubuser/superlongprojectname
 
 <hr>
 ## Extra Section, Call it Whatever You Want
-
 
 * Human Languages:
 
