@@ -70,6 +70,8 @@ Commit changes along with a custom message: ```git commit -m "(message)"```
 
 Link: https://www.keycdn.com/blog/git-cheat-sheet
 
+*First commit from Ubuntu!*
+
 ### Learn Markdown
 
 Useful cheat sheet:
