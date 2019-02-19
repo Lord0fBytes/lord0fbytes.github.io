@@ -33,7 +33,7 @@ So, format is (obvisously a WIP):
 ### Dust off Ubuntu
 Done, running Ubuntu 18.10 because I like GNOME. 
 Running on custom desktop once used for gaming. 
-Specs FWIW:
+<br>Specs FWIW: <br>
 **RAM**: 16GB <br>
 **CPU**: Intel Core i5-4400 (ya, it's old and I am broke)<br>
 **OS**: Ubuntu 18.10 GNOME 3.30.1 64bit<br>
