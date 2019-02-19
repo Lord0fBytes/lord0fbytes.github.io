@@ -19,12 +19,41 @@ So, format is (obvisously a WIP):
 
 **TODO:** 
 
+  - Get Ubuntu dusted off
+  - Clone GIT
+  - Learn how to use Jekyll
+  - Update site data
   - Learn Markdown (yes, I know)
   - Publish page
   - Publish first post
   - Plan next post
   
 **DID I?:** 
+
+### Dust off Ubuntu
+Done, running Ubuntu 18.10 because I like GNOME. 
+Running on custom desktop once used for gaming. 
+Specs FWIW:
+**RAM**: 16GB <br>
+**CPU**: Intel Core i5-4400 (ya, it's old and I am broke)<br>
+**OS**: Ubuntu 18.10 GNOME 3.30.1 64bit<br>
+**DISK**: 1TB main, 3TB data, 500GB SSD (Windows, you know for photography)<br>
+**GPU**: Nvidia Ti730 something<br>
+
+### Clone Git
+Since I did a fresh install I needed to download it and configure it.
+
+```sudo apt install git -y```
+
+Create Project folder in home and clone this repo
+
+```
+cd ~
+mkdir Projects
+cd Projects
+git clone https://github.com/Webtron18/webtron18.github.io.git
+```
+
 
 ### Learn Markdown
 
