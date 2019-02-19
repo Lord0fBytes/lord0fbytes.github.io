@@ -1,11 +1,13 @@
 ---
 layout: default
 title: Let's Start This Thing
+tags: [github.io, programming, aboutme]
+excerpt_separator: <!--more-->
 ---
 
 ## Where do I begin?
 I have always had trouble keeping up with projects. Mostly because I get very into them and work hard on them for many hours.
-After a couple days of this, however, I have to take a break and when I come back to it I have no idea where I was.
+After a couple days of this, however, I have to take a break and when I come back to it I have no idea where I was.<!--more-->
 I also tend to have way to many project going on at once that never get finished because who in their right mind actually finishes
 any program.
 
@@ -22,8 +24,8 @@ So, format is (obviously a WIP):
 
 **TODO:**
 
-  - [ ] Get Ubuntu dusted off
-  - [ ] Clone GIT
+  - [x] Get Ubuntu dusted off
+  - [x] Clone GIT
   - [ ] Learn how to use Jekyll
   - [ ] Update site data
   - [ ] Learn Markdown (yes, I know)
@@ -42,7 +44,7 @@ Running on custom desktop once used for gaming.
 **OS**: Ubuntu 18.10 GNOME 3.30.1 64bit<br>
 **DISK**: 1TB main, 3TB data, 500GB SSD (Windows, you know for photography)<br>
 **GPU**: NVIDIA 730ti something<br>
-
+<hr>
 ### Clone Git
 Since I did a fresh install I needed to download it and configure it.
 
@@ -74,7 +76,7 @@ Commit changes along with a custom message: ```git commit -m "(message)"```
 Link: https://www.keycdn.com/blog/git-cheat-sheet
 
 *First commit from Ubuntu!*
-
+<hr>
 ### Learn Markdown
 
 Useful cheat sheet:
