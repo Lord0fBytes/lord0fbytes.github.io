@@ -5,11 +5,11 @@ tags: [github.io, programming, aboutme]
 excerpt_separator: <!--more-->
 ---
 
-## Where do I begin?
 I have always had trouble keeping up with projects. Mostly because I get very into them and work hard on them for many hours.
-After a couple days of this, however, I have to take a break and when I come back to it I have no idea where I was.<!--more-->
+After a couple days of this, however, I have to take a break and when I come back to it I have no idea where I was.
 I also tend to have way to many project going on at once that never get finished because who in their right mind actually finishes
-any program.
+any program.<br>
+So introducing Webtron Project Tracker (WIP)<!--more-->
 
 Any I am hoping that by 'blogging' (it sounds very hipster out loud) I can use this as a means to track changes to my projects I make
 with code updates and with commentary so it will be easier to pick back up after a break.
