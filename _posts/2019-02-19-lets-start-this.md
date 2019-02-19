@@ -16,10 +16,8 @@ with code updates and with commentary so it will be easier to pick back up after
 
 First step is to get a simple site going. Luckily I started this project a long time ago with GitHub.IO. Time to resurrect it.
 I also need some format, but I do not want to put more than 60 seconds into it. Keeps me from going down that rabbit hole of
-"What's the best way of categorizing, sub-categorizing, tagging, future proofing, etc., etc., etc.".
-<br>
-So, format is (obviously a WIP):
-<br>
+"What's the best way of categorizing, sub-categorizing, tagging, future proofing, etc., etc., etc.".Thinking about starting off like the below at the start of each post. Should create a proejct list or trackers of some kind with GitHub badges.
+<hr>
 **Project:** github.io
 
 **TODO:**
@@ -27,13 +25,13 @@ So, format is (obviously a WIP):
   - [x] Get Ubuntu dusted off
   - [x] Clone GIT
   - [x] Learn how to use Jekyll
-  - [X] Update site data
-  - [X] Learn Markdown (yes, I know)
+  - [x] Update site data
+  - [x] Learn Markdown (yes, I know)
   - [x] Publish page
   - [x] Publish first post
   - [ ] Plan next post
 
-**Status:** In-Progress
+**Status:** <span style='color:green;'><b>In-Progress (88%)</b></span>
 <hr>
 ### Dust off Ubuntu
 Done, running Ubuntu 18.10 because I like GNOME.
@@ -97,4 +95,18 @@ This was technically done and already running, but I publicly humiliated myself 
 I guess that would be this one.
 
 ### Plan Next Post
-TBD
+**Ideas:**
+ - Github Refresher
+  - Branches and pull-requests
+ - Finish Resume post
+ - Clean-up Github Site
+  - Remove old repos
+  - Update stale ones
+  - Figure out the badge things
+ - Project Tracker actualy project tracking
+  - List of some kind
+  - Last updates
+ - Jekyll
+  - Templates
+  - extras
+  - downloads in posts
