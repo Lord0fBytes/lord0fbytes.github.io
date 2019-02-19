@@ -21,7 +21,7 @@ Justin Masse
 2007-2012 (Incomplete)
 <br>**B.S., Computer Science**; Daniel Webster College (Nashua, NH)
 
-    *Major: Game, Simulation and Robotics*
+  *Major: Game, Simulation and Robotics*
 
 <hr>
 ## Experience
