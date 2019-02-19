@@ -43,7 +43,9 @@ Specs FWIW:
 ### Clone Git
 Since I did a fresh install I needed to download it and configure it.
 
-```sudo apt install git -y```
+```
+sudo apt install git -y
+```
 
 Create Project folder in home and clone this repo
 
@@ -53,7 +55,20 @@ mkdir Projects
 cd Projects
 git clone https://github.com/Webtron18/webtron18.github.io.git
 ```
+Voila!
 
+Refresh sheet on Git:
+Set the username: ```git config –global user.name```
+
+Set the user email: ```git config –global user.email```
+
+Retrieve the most recent changes from origin and merge: ```git pull```
+
+Add file changes to staging: ```git add (file name or . for all)```
+
+Commit changes along with a custom message: ```git commit -m "(message)"```
+
+Link: https://www.keycdn.com/blog/git-cheat-sheet
 
 ### Learn Markdown
 
