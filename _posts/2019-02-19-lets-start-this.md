@@ -26,11 +26,11 @@ So, format is (obviously a WIP):
 
   - [x] Get Ubuntu dusted off
   - [x] Clone GIT
-  - [ ] Learn how to use Jekyll
-  - [ ] Update site data
-  - [ ] Learn Markdown (yes, I know)
-  - [ ] Publish page
-  - [ ] Publish first post
+  - [x] Learn how to use Jekyll
+  - [X] Update site data
+  - [X] Learn Markdown (yes, I know)
+  - [x] Publish page
+  - [x] Publish first post
   - [ ] Plan next post
 
 **Status:** In-Progress
@@ -73,10 +73,28 @@ Add file changes to staging: ```git add (file name or . for all)```
 
 Commit changes along with a custom message: ```git commit -m "(message)"```
 
-Link: https://www.keycdn.com/blog/git-cheat-sheet
+[Link: ](https://www.keycdn.com/blog/git-cheat-sheet)
 
 *First commit from Ubuntu!*
+
+### Learn How to Use Jekyll
+Done, not much to say but here is the [link](https://jekyllrb.com/docs/)
+
+### Update Site data
+Changes the Title (still work in progress)<br>
+Also, changed the excerpt of the page. Needs lots of thought behind it.
+
 <hr>
 ### Learn Markdown
 
 Useful cheat sheet:
+[Link to Cheatsheet](https://help.github.com/articles/basic-writing-and-formatting-syntax/#styling-text)
+
+### Publish the Site
+This was technically done and already running, but I publicly humiliated myself by posting it publicly.
+
+### Publish First post
+I guess that would be this one.
+
+### Plan Next Post
+TBD
