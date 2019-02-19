@@ -7,11 +7,12 @@ title: About Me - Resume (Network Admin)
 Justin Masse
 ============
 
--------------------     ----------------------------
-195 McGregor Street                        jmasse@webtron.me
+<hr>
+<p style="text-align:left;">195 McGregor Street <span style="float:right;">jmasse@webtron.me</span></p>
+
 Manchester, NH 03102                          https://webtron18.github.io/
 United States                           603-487-7263
--------------------     ----------------------------
+<hr>
 
 Education
 ---------
