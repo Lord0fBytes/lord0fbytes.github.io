@@ -5,63 +5,46 @@ navbar_entries:
   - title: blog
     url: blog
 
-  - title: website
-    url: https://www.abhinav.co
+  - title: now
+    url: now
 
 project_entries:
-  - title: Project 1
-    url: overview-post
-    desc: This is an example project, configured in _data/home.yml
+  - title: Personal Rebrand
+    url: personal-rebrand
+    desc: Began a brand re-design for my personal and professional life.
 
-  - title: Project 2
-    url: overview-post
-    desc: Projects are shown in card layout
+  - title: Finishing Basement - v. Homeschool
+    url: finishing-basement-homeschool
+    desc: The next room in the basement finishing series is the Homeschool room.
+    highlight: done
 
-  - title: Project 3
-    url: overview-post
-    desc: You can control visibility from _config.yml file
+  - title: Homelab Scale Down
+    url: homelab-scale-down
+    desc: With the rise of electricity costs; i've decided to start scaling down the Homelab
+    highlight: wip
 
-  - title: Project 4
-    url: overview-post
-    desc: This project uses highlight markup, configured in _data/home.yml
-    highlight: WIP
+  - title: Garden Rebuild
+    url: garden-beds-rebuild
+    desc: Adding 2500 sqft of new garden beds and animal protections
+    highlight: done
 
-  - title: Project 5
-    url: overview-post
-    desc: Moonwalk also has horizontal list (used in header and footer)
-    highlight: WIP
-
-  - title: Project 6
-    url: overview-post
-    desc: It also has a scalable vertical list (in case you need it)
-
-old_project_entries:
-  - title: Soopr
-    url: https://www.soopr.co
-    desc: Delight your readers - add beautiful share and like buttons easily to your websites 
-    highlight: NEW
-
-  - title: Cookie
-    url: https://github.com/abhinavs/cookie
-    desc: An open source landing website with supporting pages and integrated blog
-
-  - title: Moonwalk
-    url: https://github.com/abhinavs/moonwalk
-    desc: A fast and minimalist Jekyll blog theme with clean dark mode
-
-  - title: Humangous
-    url: https://www.humangous.co
-    desc: The better people know you, the better they collaborate
+  - title: Finishing Basement - v. Office
+    url: finishing-basement-office
+    desc: Began the process of finishing the basement. Starting off with a new office and homelab.
+    highlight: done
 
 footer_entries:
-  - title: abhinav's homepage
-    url: https://www.abhinav.co
+  - title: Massedonia
+    url: https://socials.massedonia.com
 
-  - title: twitter
-    url: https://twitter.com/abhinav
+  - title: linkedin
+    url: https://www.linkedin.com/in/justin-masse-80644b70/
+
+  - title: bluesky
+    url: https://bsky.app/profile/lordofbytes.bsky.social
 
   - title: github
-    url: https://github.com/abhinavs
+    url: https://github.com/lord0fbytes
 
   - title: feed
     url: feed.xml
@@ -69,33 +52,3 @@ footer_entries:
 misc_entries:
   - title: this is an example vertical list
     url: false
-
-  - title: you can show or hide using a boolean flag in _config.yml
-    url: false
-
-  - title: and you can add data in _data/home.yml
-    url: false
-
-  - title: Blog posts
-    post_list: true
-    url: false
-
-  - title: moonwalk on the Internet
-    url: false
-    entries:
-      - title: on Github
-        url: https://github.com/abhinavs/moonwalk
-
-      - title: originally built for abhinav's homepage
-        url: https://www.abhinav.co
-
-      - title: this list is scalable and can be nested
-        url: false
-        entries:
-          - title: this is nested inside a nested list
-            url: false
-
-          - title: it is easy to use, see _data/home.yml to see how to configure it.
-            url: false
-
-
