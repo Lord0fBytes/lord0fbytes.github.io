@@ -1,0 +1,94 @@
+current directory: /Users/justin/Documents/Coding/lord0fbytes.github.io/vendor/bundle/ruby/4.0.0/gems/sassc-2.4.0/ext
+/opt/homebrew/opt/ruby/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/justin/Documents/Coding/lord0fbytes.github.io/vendor/bundle/ruby/4.0.0/gems/sassc-2.4.0/ext
+make -j9 DESTDIR\= sitearchdir\=./.gem.20260210-15608-l8u16u sitelibdir\=./.gem.20260210-15608-l8u16u clean
+
+current directory: /Users/justin/Documents/Coding/lord0fbytes.github.io/vendor/bundle/ruby/4.0.0/gems/sassc-2.4.0/ext
+make -j9 DESTDIR\= sitearchdir\=./.gem.20260210-15608-l8u16u sitelibdir\=./.gem.20260210-15608-l8u16u
+compiling ./libsass/src/ast.cpp
+compiling ./libsass/src/ast2c.cpp
+compiling ./libsass/src/ast_fwd_decl.cpp
+compiling compiling ./libsass/src/ast_selectors.cpp
+./libsass/src/ast_sel_super.cpp
+compiling ./libsass/src/ast_sel_cmp.cpp
+compiling ./libsass/src/ast_supports.cpp
+compiling ./libsass/src/ast_sel_weave.cpp
+compiling ./libsass/src/ast_sel_unify.cpp
+In file included from ./libsass/src/ast_sel_unify.cpp:3:
+In file included from ./libsass/src/sass.hpp:55:
+In file included from ./libsass/src/memory.hpp:8:
+./libsass/src/memory/allocator.hpp:8:10: fatal error: 'vector' file not found
+In file included from ./libsass/src/ast_selectors.cppIn file included from ./libsass/src/ast_sel_super.cpp:3:
+In file included from ./libsass/src/sass.hpp:55:
+In file included from ./libsass/src/memory.hpp:8:
+./libsass/src/memory/allocator.hpp:8:10: fatal error: 'vector' file not found
+In file included from ./libsass/src/ast2c.cpp:3:
+In file included from ./libsass/src/sass.hpp:55:
+In file included from ./libsass/src/memory.hpp:8:
+./libsass/src/memory/allocator.hpp:8:10: fatal error: 'vector' file not found
+In file included from ./libsass/src/ast_supports.cpp:3:
+In file included from ./libsass/src/sass.hpp:55:
+In file included from ./libsass/src/memory.hpp:8:
+./libsass/src/memory/allocator.hpp:8:10:In file included from ./libsass/src/ast_sel_weave.cpp:In file included from ./libsass/src/ast.cpp:3:
+3In file included from :
+In file included from ./libsass/src/sass.hppIn file included from ./libsass/src/ast_sel_cmp.cpp:3:
+In file included from ./libsass/src/sass.hpp::5555::
+In file included from 3:
+In file included from ./libsass/src/ast_fwd_decl.cpp:1:
+:
+In file included from In file included from In file included from ./libsass/src/memory.hpp./libsass/src/memory.hpp:./libsass/src/sass.hpp8./libsass/src/sass.hpp:
+ ./libsass/src/memory/allocator.hppfatal error: :./libsass/src/ast.hpp8::10'vector' file not found:
+ fatal error: 'vector' file not found
+8::
+./libsass/src/memory/allocator.hpp:8:10: fatal error: 'vector' file not found
+:6:
+55In file included from :
+./libsass/src/sass.hppIn file included from :./libsass/src/memory.hpp55::
+8In file included from :
+./libsass/src/memory.hpp./libsass/src/memory/allocator.hpp::88:
+:./libsass/src/memory/allocator.hpp10::8 :fatal error: 'vector' file not found
+:55:
+In file included from ./libsass/src/memory.hpp:8:
+./libsass/src/memory/allocator.hpp:8:10: fatal error: 'vector' file not found
+10:     8 | #    include <vector>
+      |          ^~~~~~~~
+fatal error: 'vector' file not found
+    8 | #include <vector>
+      |          ^~~~~~~~
+    8 | #include <vector>
+      |          ^~~~~~~~
+    8 | #include <vector>
+      |          ^~~~~~~~
+    8 | #include <vector>
+      |          ^~~~~~~~
+    8 | #includ    e8 |  #i8nclude <vector>
+      |          ^~~~~~~~ | #include <vector>
+      |          ^~~~~~~~
+    8 | #include 
+<vector>
+      |          ^~~~~~~~
+<vector>
+      |          ^~~~~~~~
+1 error generated.
+1 error generated.
+1 error generated.
+1 error generated.
+make: *** [ast_sel_super.o] Error 1
+make: *** Waiting for unfinished jobs....
+1 error generated.
+make: *** [ast_supports.o] Error 1
+make: *** [ast2c.o] Error 1
+make: *** [ast_sel_weave.o] Error 1
+make: *** [ast_selectors.o] Error 1
+1 error generated.
+1 error generated.
+make: *** [ast_sel_unify.o] Error 1
+make: *** [ast_fwd_decl.o] Error 1
+1 error generated.
+1 error generated.
+make: *** [ast_sel_cmp.o] Error 1
+make: *** [ast.o] Error 1
+
+make failed, exit code 2

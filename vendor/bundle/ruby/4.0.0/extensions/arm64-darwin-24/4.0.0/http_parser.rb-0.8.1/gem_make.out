@@ -1,0 +1,25 @@
+current directory: /Users/justin/Documents/Coding/lord0fbytes.github.io/vendor/bundle/ruby/4.0.0/gems/http_parser.rb-0.8.1/ext/ruby_http_parser
+/opt/homebrew/opt/ruby/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/justin/Documents/Coding/lord0fbytes.github.io/vendor/bundle/ruby/4.0.0/gems/http_parser.rb-0.8.1/ext/ruby_http_parser
+make -j9 DESTDIR\= sitearchdir\=./.gem.20260210-81299-iwy51l sitelibdir\=./.gem.20260210-81299-iwy51l clean
+
+current directory: /Users/justin/Documents/Coding/lord0fbytes.github.io/vendor/bundle/ruby/4.0.0/gems/http_parser.rb-0.8.1/ext/ruby_http_parser
+make -j9 DESTDIR\= sitearchdir\=./.gem.20260210-81299-iwy51l sitelibdir\=./.gem.20260210-81299-iwy51l
+compiling ruby_http_parser.c
+compiling ryah_http_parser.c
+ruby_http_parser.c:373:17: warning: comparison of integers of different signs: 'size_t' (aka 'unsigned long') and 'long' [-Wsign-compare]
+  373 |     if (nparsed < len)
+      |         ~~~~~~~ ^ ~~~
+1 warning generated.
+linking shared-object ruby_http_parser.bundle
+ld: warning: search path '/opt/homebrew/Cellar/openssl@3/3.6.0/lib' not found
+ld: warning: search path '/opt/homebrew/Cellar/openssl@3/3.6.0/lib' not found
+
+current directory: /Users/justin/Documents/Coding/lord0fbytes.github.io/vendor/bundle/ruby/4.0.0/gems/http_parser.rb-0.8.1/ext/ruby_http_parser
+make -j9 DESTDIR\= sitearchdir\=./.gem.20260210-81299-iwy51l sitelibdir\=./.gem.20260210-81299-iwy51l install
+/usr/bin/install -c -m 0755 ruby_http_parser.bundle ./.gem.20260210-81299-iwy51l
+
+current directory: /Users/justin/Documents/Coding/lord0fbytes.github.io/vendor/bundle/ruby/4.0.0/gems/http_parser.rb-0.8.1/ext/ruby_http_parser
+make DESTDIR\= sitearchdir\=./.gem.20260210-81299-iwy51l sitelibdir\=./.gem.20260210-81299-iwy51l clean

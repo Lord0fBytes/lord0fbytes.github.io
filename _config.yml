@@ -2,8 +2,13 @@ title: "@justinmasse"
 author: Justin Masse
 url: https://justinmasse.me # root address of the site
 description: > # description of the site (multiple lines allowed)
-  Welcome to my corner of the internet. My name is justin masse. I have been working on computers since I was 8 years old. 
-  I enjoy minimalism, technology, hockey (go Bruins!), reading, and my family. 
+  Welcome to my corner of the internet. 
+  
+  I’m Justin, living in the capital region NY. I’ve been working with computers since I was a kid, building and exploring systems across infrastructure, IT, and programming.
+
+  These days I spend most of my time experimenting with AI systems, programming, and projects that catch my curiosity. I also like to keep things simple — minimalism, reading, hockey (go Bruins!), and time with my family.
+
+  This is where I share experiments, projects, and notes on what I’m learning.
 
 permalink: /:slug
 
