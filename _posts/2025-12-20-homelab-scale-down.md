@@ -1,6 +1,10 @@
 ---
 layout: post
 tags: [project, indoor, house, digital]
+highlight: wip
+title: Homelab Scale Down
+categories: digital
+permalink: /:categories/:slug/
 ---
 
 # The current setup

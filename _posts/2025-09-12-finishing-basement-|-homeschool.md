@@ -1,6 +1,10 @@
 ---
 layout: post
-tags: [project, indoor, house]
+tags: [project, outdoor, house, irl]
+title: Bsement Remodel - Homeschool Room
+highlight: wip
+categories: irl
+permalink: /:categories/:slug/
 ---
 
 # The Basement

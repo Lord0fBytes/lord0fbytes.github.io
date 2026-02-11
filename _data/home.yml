@@ -18,6 +18,11 @@ project_entries:
     desc: The next room in the basement finishing series is the Homeschool room.
     highlight: done
 
+  - title: HarvestHub App - DevLog
+    url: digital/harvesthub-application
+    desc: A modern PWA for creating shopping lists.
+    highlight: wip
+
   - title: Homelab Scale Down
     url: homelab-scale-down
     desc: With the rise of electricity costs; i've decided to start scaling down the Homelab

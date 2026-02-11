@@ -16,6 +16,52 @@ layout: default
 
 {{ content }}
 
+{% assign digital_posts = site.posts | where_exp: "post", "post.tags contains 'digital'" | limit: 4 %}
+{% if digital_posts.size > 0 %}
+  <h2>Digital Projects</h2>
+  <ul class="horizontal-list">
+    {% for post in digital_posts %}
+      <li class="card">
+        <a href="{{ post.url | relative_url }}">
+          <span class="header">
+            {{ post.title }}</br>
+            {% if post.highlight %}
+              <mark>{{ post.highlight }}</mark>
+            {% endif %}
+          </span>
+          <hr />
+          <p class="body">
+            {{ post.excerpt | strip_html | truncatewords: 20 }}
+          </p>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% assign irl_posts = site.posts | where_exp: "post", "post.tags contains 'irl'" | limit: 4 %}
+{% if irl_posts.size > 0 %}
+  <h2>Real Life (IRL) Projects</h2>
+  <ul class="horizontal-list">
+    {% for post in irl_posts %}
+      <li class="card">
+        <a href="{{ post.url | relative_url }}">
+          <span class="header">
+            {{ post.title }}</br>
+            {% if post.highlight %}
+              <mark>{{ post.highlight }}</mark>
+            {% endif %}
+          </span>
+          <hr />
+          <p class="body">
+            {{ post.excerpt | strip_html | truncatewords: 20 }}
+          </p>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
 {% if site.theme_config.show_projects == true %}
   <h2>{{ site.theme_config.home.title_projects }}</h2>
   {% include card_list.html collection=site.data.home.project_entries %}

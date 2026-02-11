@@ -1,6 +1,9 @@
 ---
 layout: post
-tags: [project, indoor, house]
+tags: [project, indoor, house, irl]
+title: Basement Remodel - Office Room
+categories: irl
+permalink: /:categories/:slug/
 ---
 
 # The Basement
