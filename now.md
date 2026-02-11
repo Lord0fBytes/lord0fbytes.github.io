@@ -19,7 +19,7 @@ I’m also expanding the chicken coop to improve the setup and give the flock mo
 
 ## More storage for our small house
 
-Finishing up a [basement storage project](/irl/finishing-basement-homeschool) — trying to make the house function better long term. We gutted out the understairs storage and rebuilt it with new shelves and some hidden doors.
+Finishing up a [basement storage project](/irl/finishing-basement-homeschool); trying to make the house function better long term. We gutted out the understairs storage and rebuilt it with new shelves and some hidden doors.
 
 ## Year round hydroponics - <mark>coming soon</mark>
 
