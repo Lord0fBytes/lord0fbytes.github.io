@@ -1,6 +1,10 @@
 ---
 layout: post
 tags: [project, digital]
+highlight: wip
+title: Personal Re-brand
+categories: digital
+permalink: /:categories/:slug/
 ---
 
 # The Brand

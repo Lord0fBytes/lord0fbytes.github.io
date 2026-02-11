@@ -1,6 +1,9 @@
 ---
 layout: post
-tags: [project, outdoor, house]
+tags: [project, outdoor, house, irl]
+title: Rebuilding Garden Beds v2.0
+categories: irl
+permalink: /:categories/:slug/
 ---
 
 # The Garden

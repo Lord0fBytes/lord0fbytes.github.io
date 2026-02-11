@@ -1,6 +1,7 @@
 ---
 layout: post
 tags: [project, digital, application]
+highlight: wip
 title: HarvestHub - Shopping List App
 categories: digital
 permalink: /:categories/:slug/
