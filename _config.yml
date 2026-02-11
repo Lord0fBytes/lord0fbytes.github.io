@@ -1,4 +1,4 @@
-title: "@justinmasse"
+title: Justin M
 author: Justin Masse
 url: https://justinmasse.me # root address of the site
 description: > # description of the site (multiple lines allowed)
@@ -8,7 +8,7 @@ description: > # description of the site (multiple lines allowed)
   </br></br>
   These days I spend most of my time experimenting with AI systems, programming, and projects that catch my curiosity. I also like to keep things simple — minimalism, reading, hockey (go Bruins!), and time with my family.
   </br></br>
-  This is where I share experiments, projects, and notes on what I’m learning.
+  This is where I share experiments, projects, and notes on what I’m learning. To see what I am actively working on check out my <a href="/now">now</a> page.
 
 permalink: /:slug
 
