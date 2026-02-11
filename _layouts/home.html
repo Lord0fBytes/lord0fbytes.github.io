@@ -16,6 +16,22 @@ layout: default
 
 {{ content }}
 
+{% assign digital_posts = site.posts | where_exp: "post", "post.tags contains 'digital'" | limit:
+   4 %}
+  {% if digital_posts.size > 0 %}
+    <h2>Digital Projects</h2>
+    <ul>
+      {% for post in digital_posts %}
+        <li class="post-list-item">
+          <span class="home-date">
+            {{ post.date | date: site.theme_config.date_format }}»
+          </span>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
 {% if site.theme_config.show_projects == true %}
   <h2>{{ site.theme_config.home.title_projects }}</h2>
   {% include card_list.html collection=site.data.home.project_entries %}
