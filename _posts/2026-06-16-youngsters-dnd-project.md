@@ -1,4 +1,4 @@
-## Pip the Cloud Dragon Goes Home
+## Chapter 1: Pip the Cloud Dragon Goes Home
 
 ## Game Information
 
