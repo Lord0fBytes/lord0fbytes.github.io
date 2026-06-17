@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My First D&D Adventure — Pip the Cloud Dragon Goes Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Comic+Neue:wght@300;400;700&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN SYSTEM — Claymorphism (via ui-ux-pro-max)
+   Soft 3D · chunky · toy-like · thick borders · double shadows
+   ============================================================ */
+:root{
+  /* palette */
+  --bg:        #FFF7ED;
+  --bg-warm:   #FFE7CC;
+  --bg-rose:   #FFE0E8;
+  --primary:   #F97316;
+  --secondary: #FB923C;
+  --accent:    #2563EB;
+  --ink:       #4A2A18;   /* body text — warm dark brown, 4.5:1+ on cream/white */
+  --head:      #9A3412;   /* headings — burnt sienna */
+  --card:      #FFFFFF;
+  --muted:     #8A6A56;
+
+  /* per-character / per-section accents */
+  --c-unicorn: #8B5CF6;
+  --c-fairy:   #2563EB;
+  --c-dragon:  #16A34A;
+  --c-truck:   #F97316;
+  --c-bolt:    #F59E0B;
+  --c-goblin:  #C2566B;
+
+  /* dice */
+  --d-low:  #EF6B5E;
+  --d-mid:  #F59E0B;
+  --d-high: #16A34A;
+
+  --radius: 28px;
+  --radius-sm: 18px;
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{height:100%;}
+body{
+  font-family:'Comic Neue', system-ui, sans-serif;
+  background:#231a12;
+  color:var(--ink);
+  overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* ---- scaling stage (fixed 16:9) ---- */
+#stage{
+  position:absolute; top:50%; left:50%;
+  width:1280px; height:720px;
+  transform-origin:center center;
+}
+
+/* ---- slides ---- */
+.slide{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column;
+  padding:54px 64px;
+  opacity:0; transform:scale(.985); pointer-events:none;
+  transition:opacity .42s ease, transform .42s ease;
+  background:
+    radial-gradient(1100px 760px at 78% -12%, var(--bg-warm), transparent 60%),
+    radial-gradient(880px 680px at -8% 112%, var(--bg-rose), transparent 60%),
+    var(--bg);
+  overflow:hidden;
+}
+.slide.active{opacity:1; transform:none; pointer-events:auto;}
+
+/* floating decorative clay blobs */
+.slide::before,.slide::after{
+  content:""; position:absolute; border-radius:50%;
+  filter:blur(2px); opacity:.5; z-index:0;
+}
+.slide::before{width:170px;height:170px;top:-50px;right:120px;
+  background:radial-gradient(circle at 35% 30%, #fff, var(--secondary));}
+.slide::after{width:120px;height:120px;bottom:-30px;left:80px;
+  background:radial-gradient(circle at 35% 30%, #fff, #C4B5FD);}
+
+.slide > *{position:relative; z-index:1;}
+
+/* ---- claymorphism card ---- */
+.clay{
+  background:var(--card);
+  border:4px solid rgba(154,52,18,.10);
+  border-radius:var(--radius);
+  box-shadow:
+    14px 14px 30px rgba(154,64,14,.18),
+    -10px -10px 24px rgba(255,255,255,.92);
+}
+.tinted{
+  --t:var(--primary);
+  background:color-mix(in srgb, var(--t) 10%, #fff);
+  border:4px solid color-mix(in srgb, var(--t) 38%, #fff);
+}
+
+/* ---- typography ---- */
+.kicker{
+  font-family:'Cinzel Decorative', serif; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase;
+  color:var(--primary); font-size:18px;
+}
+h1{font-family:'Cinzel Decorative', serif; font-weight:900; color:var(--head); line-height:1.02;}
+h2{font-family:'Baloo 2', cursive; font-weight:800; color:var(--head); line-height:1.05;}
+h3{font-family:'Baloo 2', cursive; font-weight:700; line-height:1.1;}
+p,li{font-family:'Comic Neue', sans-serif; color:var(--ink);}
+.lead{font-size:23px; line-height:1.55;}
+
+.slide-title{display:flex; align-items:baseline; gap:18px; margin-bottom:22px;}
+.slide-title h2{font-size:42px;}
+.page-num{
+  position:absolute; bottom:26px; right:34px; z-index:2;
+  font-family:'Baloo 2',cursive; font-weight:700; color:var(--muted); font-size:16px;
+}
+
+/* ============ TITLE SLIDE ============ */
+.title-slide{align-items:center; justify-content:center; text-align:center;}
+.title-card{
+  width:84%; padding:52px 48px; text-align:center;
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+}
+.title-card .kicker{font-size:22px;}
+.title-card h1{font-size:74px; margin:4px 0 2px;}
+.ribbon{
+  display:inline-block; margin-top:14px; padding:14px 34px;
+  background:linear-gradient(135deg, var(--accent), #3B82F6);
+  color:#fff; font-family:'Baloo 2',cursive; font-weight:700; font-size:24px;
+  border-radius:999px;
+  box-shadow:6px 6px 16px rgba(37,99,235,.35), -4px -4px 12px rgba(255,255,255,.5);
+}
+.emoji-row{font-size:60px; margin-top:26px; letter-spacing:8px;}
+.title-sub{font-size:21px; color:var(--muted); margin-top:18px;}
+
+/* ============ CHARACTER GRID ============ */
+.roster{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; flex:1;}
+.hero{
+  padding:18px 18px 16px; text-align:center;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+}
+.hero .face{font-size:62px; line-height:1; filter:drop-shadow(3px 4px 4px rgba(0,0,0,.18));}
+.hero h3{font-size:20px; color:color-mix(in srgb, var(--t) 70%, #4A2A18);}
+.hero p{font-size:15.5px; line-height:1.32; color:var(--ink);}
+
+/* ============ SPLIT (emoji + text) ============ */
+.split{display:grid; grid-template-columns:300px 1fr; gap:34px; flex:1; align-items:stretch;}
+.blob{
+  display:flex; align-items:center; justify-content:center;
+  border-radius:var(--radius);
+  background:color-mix(in srgb, var(--t,var(--primary)) 14%, #fff);
+  border:4px solid color-mix(in srgb, var(--t,var(--primary)) 30%, #fff);
+  box-shadow:inset 8px 8px 18px rgba(154,64,14,.10), inset -8px -8px 18px rgba(255,255,255,.9);
+}
+.blob span{font-size:150px; filter:drop-shadow(5px 6px 5px rgba(0,0,0,.18));}
+.panel{padding:30px 34px; display:flex; flex-direction:column; justify-content:center; gap:14px;}
+.panel h3{font-size:27px; color:var(--t,var(--head));}
+
+/* ============ DICE RULES ============ */
+.dice-row{display:flex; align-items:center; gap:24px; padding:14px 26px; margin-bottom:14px;}
+.die{
+  flex:0 0 auto; width:84px; height:84px; border-radius:22px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Baloo 2',cursive; font-weight:800; font-size:30px; color:#fff;
+  box-shadow:6px 6px 14px rgba(0,0,0,.18), -4px -4px 10px rgba(255,255,255,.4);
+}
+.dice-row .txt{font-family:'Baloo 2',cursive; font-weight:600; font-size:25px; color:var(--ink);}
+.netbar{
+  margin-top:8px; padding:16px 26px; font-size:18px; font-weight:700;
+  background:color-mix(in srgb, var(--accent) 10%, #fff);
+  border:3px dashed color-mix(in srgb, var(--accent) 45%, #fff);
+}
+.netbar b{color:var(--accent);}
+
+/* ============ LISTS ============ */
+.biglist{padding:30px 40px; display:flex; flex-direction:column; justify-content:center; gap:16px; flex:1;}
+.biglist .row{display:flex; gap:18px; align-items:flex-start;}
+.num{
+  flex:0 0 auto; width:46px; height:46px; border-radius:14px;
+  background:linear-gradient(135deg,var(--primary),var(--secondary)); color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Baloo 2',cursive;font-weight:800;font-size:22px;
+  box-shadow:4px 4px 10px rgba(249,115,22,.35);
+}
+.biglist .row p{font-size:20px; line-height:1.4; padding-top:6px;}
+.biglist .row b{color:var(--head);}
+
+.pinlist{padding:28px 40px; display:flex; flex-direction:column; justify-content:center; gap:15px; flex:1;}
+.pin{display:flex; gap:18px; align-items:center; font-size:21px;}
+.pin .ic{font-size:34px; width:48px; text-align:center; filter:drop-shadow(2px 3px 3px rgba(0,0,0,.15));}
+.pin b{color:var(--head); font-family:'Baloo 2',cursive;}
+.pin .mut{color:var(--muted); font-style:italic;}
+
+/* ============ SESSION ============ */
+.sesshead{display:flex; align-items:center; gap:18px; margin-bottom:20px;}
+.badge{
+  padding:10px 20px; border-radius:999px; color:#fff;
+  font-family:'Cinzel Decorative',serif; font-weight:700; font-size:16px; letter-spacing:.08em;
+  background:var(--t); box-shadow:5px 5px 12px rgba(0,0,0,.16);
+}
+.sesshead h2{font-size:38px; color:var(--t);}
+.sessbody{display:grid; grid-template-columns:260px 1fr; gap:30px; flex:1;}
+.sesspanel{padding:26px 32px; display:flex; flex-direction:column; justify-content:center; gap:13px;}
+.tag{font-family:'Baloo 2',cursive; font-weight:700; font-size:18px;}
+.tag.hook{color:var(--t);}
+.tag.win{color:var(--d-high);}
+.tag.net{color:var(--accent);}
+.sesspanel p{font-size:18px; line-height:1.42;}
+.sesspanel .chal{display:flex; gap:12px; align-items:flex-start; font-size:17.5px; line-height:1.38;}
+.dot{flex:0 0 auto;width:12px;height:12px;border-radius:50%;background:var(--t);margin-top:8px;}
+.sesspanel .small{font-size:16px; font-style:italic; color:var(--muted);}
+
+/* ============ NPC GRID ============ */
+.npcgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; flex:1; align-content:center;}
+.npc{padding:16px 16px; text-align:center; display:flex; flex-direction:column; gap:6px; align-items:center;}
+.npc .face{font-size:46px; filter:drop-shadow(2px 3px 3px rgba(0,0,0,.15));}
+.npc h3{font-size:18px; color:color-mix(in srgb,var(--t) 70%,#4A2A18);}
+.npc .need{font-size:14.5px; line-height:1.3;}
+.npc .rew{font-size:14px; font-weight:700; color:var(--d-mid);}
+
+/* ============ CLOSING ============ */
+.closing{align-items:center; justify-content:center; text-align:center;
+  background:radial-gradient(900px 700px at 50% 20%, #FFE7CC, transparent 60%),
+            linear-gradient(160deg,#FFB46B,#F97316 55%,#EA580C);}
+.closing .clay{width:80%; padding:60px 50px;}
+.closing h1{font-size:72px; margin-bottom:10px;}
+.closing .emoji-row{font-size:56px;}
+.closing p{font-size:24px; color:var(--ink); margin-top:18px; font-weight:700;}
+
+/* ============================================================
+   NAV CONTROLS (real CSS/SVG — no emoji icons)
+   ============================================================ */
+#controls{
+  position:fixed; bottom:22px; left:50%; transform:translateX(-50%);
+  display:flex; align-items:center; gap:18px; z-index:50;
+  background:rgba(35,26,18,.55); backdrop-filter:blur(8px);
+  padding:10px 18px; border-radius:999px;
+}
+.navbtn{
+  width:44px; height:44px; border:none; border-radius:50%;
+  background:var(--primary); cursor:pointer; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 10px rgba(0,0,0,.3); transition:transform .18s ease, background .18s ease;
+}
+.navbtn:hover{background:var(--secondary);}
+.navbtn:active{transform:scale(.92);}
+.navbtn:focus-visible{outline:3px solid #fff; outline-offset:2px;}
+.navbtn svg{width:22px;height:22px;stroke:#fff;stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.dots{display:flex; gap:7px;}
+.dotnav{width:10px;height:10px;border-radius:50%;border:none;background:rgba(255,255,255,.35);cursor:pointer;padding:0;transition:background .2s,transform .2s;}
+.dotnav.on{background:#fff; transform:scale(1.35);}
+.dotnav:focus-visible{outline:2px solid #fff; outline-offset:2px;}
+.counter{color:#fff; font-family:'Baloo 2',cursive; font-weight:700; font-size:15px; min-width:48px; text-align:center;}
+
+@media (prefers-reduced-motion: reduce){
+  .slide{transition:none;}
+  .navbtn,.dotnav{transition:none;}
+}
+
+/* ============================================================
+   PRINT  →  one slide per landscape page (Save as PDF)
+   ============================================================ */
+@media print{
+  @page{size:1280px 720px; margin:0;}
+  body{background:#fff; overflow:visible; display:block;}
+  #controls{display:none;}
+  #stage{position:static; transform:none!important; width:1280px; height:auto;}
+  .slide{position:relative; inset:auto; opacity:1!important; transform:none!important;
+    width:1280px; height:720px; page-break-after:always; break-after:page;}
+  .slide::before,.slide::after{display:none;}
+}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- 1 · TITLE -->
+  <section class="slide title-slide active">
+    <div class="clay title-card">
+      <div class="kicker">My First</div>
+      <h1>D&amp;D Adventure</h1>
+      <div class="ribbon">Pip the Cloud Dragon Goes Home</div>
+      <div class="emoji-row">🐉&nbsp;🦄&nbsp;🧚&nbsp;🚛&nbsp;⚡</div>
+      <p class="title-sub">A gentle, no-fail tabletop adventure for ages 5–6</p>
+    </div>
+  </section>
+
+  <!-- 2 · WHO IS IN OUR STORY -->
+  <section class="slide">
+    <div class="slide-title"><span class="kicker">Meet the cast</span><h2>Who Is In Our Story?</h2></div>
+    <div class="roster">
+      <div class="clay tinted hero" style="--t:var(--c-unicorn)"><div class="face">🦄</div><h3>Sparkle the Unicorn</h3><p>Heals boo-boos. Leaves rainbow trails.</p></div>
+      <div class="clay tinted hero" style="--t:var(--c-fairy)"><div class="face">🧚</div><h3>Twinkle the Fairy</h3><p>Finds hidden things. Opens secret doors.</p></div>
+      <div class="clay tinted hero" style="--t:var(--c-dragon)"><div class="face">🐉</div><h3>Fizzle the Dragon</h3><p>Breathes rainbow fire — when he's happy!</p></div>
+      <div class="clay tinted hero" style="--t:var(--c-truck)"><div class="face">🚛</div><h3>Rumble the Monster Truck</h3><p>Goes anywhere. Jumps over anything.</p></div>
+      <div class="clay tinted hero" style="--t:var(--c-bolt)"><div class="face">⚡</div><h3>Bolt the Race Car</h3><p>The fastest friend in the land.</p></div>
+      <div class="clay tinted hero" style="--t:var(--c-goblin)"><div class="face">👑</div><h3>The Goblin King</h3><p>Small, grumpy &amp; a little sad underneath.</p></div>
+    </div>
+    <div class="page-num">2</div>
+  </section>
+
+  <!-- 3 · THE STORY -->
+  <section class="slide">
+    <div class="slide-title"><span class="kicker">The Story</span><h2>What's Going On?</h2></div>
+    <div class="split" style="--t:var(--c-dragon)">
+      <div class="blob"><span>🐉</span></div>
+      <div class="clay panel">
+        <h3>A little dragon needs our help</h3>
+        <p class="lead">A friendly baby cloud-dragon named <b>Pip</b> got blown out of the sky in a big windstorm.</p>
+        <p class="lead">Now she's lost on the ground and misses her family up in the <b>Cloud Castle</b>.</p>
+        <p class="lead">Over four little adventures, our heroes help Pip travel through the forest and climb all the way back home! ☁️</p>
+      </div>
+    </div>
+    <div class="page-num">3</div>
+  </section>
+
+  <!-- 4 · THE RULES -->
+  <section class="slide">
+    <div class="slide-title"><span class="kicker">How to play</span><h2>The Super-Simple Rules</h2></div>
+    <div class="clay" style="padding:30px 36px; flex:1; display:flex; flex-direction:column; justify-content:center;">
+      <h3 style="font-size:27px; color:var(--accent); margin-bottom:18px;">🎲 Roll the dice to see if things work!</h3>
+      <div class="dice-row tinted" style="--t:var(--d-low)"><div class="die" style="background:linear-gradient(135deg,#F2887C,var(--d-low))">1–2</div><div class="txt">Oops! Let's try a different way.</div></div>
+      <div class="dice-row tinted" style="--t:var(--d-mid)"><div class="die" style="background:linear-gradient(135deg,#FBBF24,var(--d-mid))">3–4</div><div class="txt">You did it — it was a little tricky!</div></div>
+      <div class="dice-row tinted" style="--t:var(--d-high)"><div class="die" style="background:linear-gradient(135deg,#4ADE80,var(--d-high))">5–6</div><div class="txt">WOW! You did it super easily!</div></div>
+      <div class="netbar"><b>🛟 The Safety Net:</b> nobody can lose. A low roll just means try again or a friend helps — after two tries, it always works!</div>
+    </div>
+    <div class="page-num">4</div>
+  </section>
+
+  <!-- 5 · MAKE YOUR HERO -->
+  <section class="slide">
+    <div class="slide-title"><span class="kicker">Get ready</span><h2>Make Your Hero</h2></div>
+    <div class="split" style="--t:var(--c-unicorn)">
+      <div class="blob"><span>🦄</span></div>
+      <div class="clay biglist">
+        <div class="row"><div class="num">1</div><p><b>What kind of creature or thing?</b> unicorn, fairy, dragon, bunny… or a monster truck!</p></div>
+        <div class="row"><div class="num">2</div><p><b>What are they good at?</b> Healer, Wizard, Scout, or Fighter</p></div>
+        <div class="row"><div class="num">3</div><p><b>What do they carry?</b> a wand, a sword, a bow, or a backpack of snacks</p></div>
+        <div class="row"><div class="num">4</div><p><b>How big?</b> tiny, regular, or really tall</p></div>
+        <div class="row"><div class="num">5</div><p><b>Their NAME!</b> 🌟</p></div>
+      </div>
+    </div>
+    <div class="page-num">5</div>
+  </section>
+
+  <!-- 6 · THE WORLD -->
+  <section class="slide">
+    <div class="slide-title"><span class="kicker">Our map</span><h2>The World</h2></div>
+    <div class="split" style="--t:var(--c-fairy)">
+      <div class="blob"><span>🗺️</span></div>
+      <div class="clay pinlist">
+        <div class="pin"><span class="ic">🏡</span><div><b>Mossy Meadow</b> <span class="mut">— where we meet Pip</span></div></div>
+        <div class="pin"><span class="ic">🌊</span><div><b>The Giggle River</b> <span class="mut">— full of ticklish fish</span></div></div>
+        <div class="pin"><span class="ic">🌳</span><div><b>Tall-Tree Hill</b> <span class="mut">— home of the Sky Stairs</span></div></div>
+        <div class="pin"><span class="ic">🕳️</span><div><b>The Goblin King's Cave</b> <span class="mut">— he keeps the fallen star</span></div></div>
+        <div class="pin"><span class="ic">🏰</span><div><b>The Cloud Castle</b> <span class="mut">— Pip's family, up in the sky!</span></div></div>
+      </div>
+    </div>
+    <div class="page-num">6</div>
+  </section>
+
+  <!-- 7 · SESSION 1 -->
+  <section class="slide">
+    <div class="sesshead" style="--t:var(--c-dragon)"><span class="badge">Session 1</span><h2>The Crying Cloud</h2></div>
+    <div class="sessbody" style="--t:var(--c-dragon)">
+      <div class="clay blob"><span style="font-size:120px">☁️</span></div>
+      <div class="clay sesspanel">
+        <p><span class="tag hook">Hook&nbsp;·&nbsp;</span>In sunny Mossy Meadow the heroes hear a tiny sniffle — it's Pip, lost and far from home!</p>
+        <div class="chal"><span class="dot"></span><p>Comfort Pip — a hug, a song, a silly dance, or a snack? Roll the d6!</p></div>
+        <div class="chal"><span class="dot"></span><p>Find Pip's floaty cloud-feather hidden in the meadow (count the feathers — which one floats <i>up</i>?).</p></div>
+        <p><span class="tag win">✅ Win&nbsp;·&nbsp;</span>Pip stops crying and the floaty feather points the way onward.</p>
+        <p class="small">🛟 If a roll is low, a friendly critter waddles over and points right at it. Zero prep needed!</p>
+      </div>
+    </div>
+    <div class="page-num">7</div>
+  </section>
+
+  <!-- 8 · SESSION 2 -->
+  <section class="slide">
+    <div class="sesshead" style="--t:var(--c-fairy)"><span class="badge">Session 2</span><h2>The Giggle River</h2></div>
+    <div class="sessbody" style="--t:var(--c-fairy)">
+      <div class="clay blob"><span style="font-size:120px">🌊</span></div>
+      <div class="clay sesspanel">
+        <p><span class="tag hook">Hook&nbsp;·&nbsp;</span>The feather leads to the Tickle River — too wide to step across. How will everyone get over?</p>
+        <div class="chal"><span class="dot"></span><p>Cross it: build a log bridge, hop the stepping-stones (count them!), or Rumble drives across.</p></div>
+        <div class="chal"><span class="dot"></span><p>Cheer up the splashy, giggly fish (Fizzle's happy rainbow fire?) so they form a fishy bridge.</p></div>
+        <p><span class="tag win">✅ Win&nbsp;·&nbsp;</span>Everyone reaches Tall-Tree Hill, laughing and a little splashed.</p>
+        <p class="small">🛟 Fall in? The water is warm and knee-deep — the fish nudge you safely to shore.</p>
+      </div>
+    </div>
+    <div class="page-num">8</div>
+  </section>
+
+  <!-- 9 · SESSION 3 -->
+  <section class="slide">
+    <div class="sesshead" style="--t:var(--c-goblin)"><span class="badge">Session 3</span><h2>The Goblin King's Star</h2></div>
+    <div class="sessbody" style="--t:var(--c-goblin)">
+      <div class="clay blob"><span style="font-size:120px">👑</span></div>
+      <div class="clay sesspanel">
+        <p><span class="tag hook">Hook&nbsp;·&nbsp;</span>The Sky Stairs need a fallen star to wake up — but the Goblin King keeps it in his cozy cave.</p>
+        <div class="chal"><span class="dot"></span><p>Make a grumpy friend: make him laugh, play a game, or give a gift. He's just lonely!</p></div>
+        <div class="chal"><span class="dot"></span><p>Once he smiles he <i>gives</i> you the star. Place it on the stairs and count them glowing (1–5).</p></div>
+        <p><span class="tag win">✅ Win&nbsp;·&nbsp;</span>A new friend made, the star handed over, and the Sky Stairs light up!</p>
+        <p class="small">🛟 He's never scary — just grouchy. After two tries his frown always cracks into a smile.</p>
+      </div>
+    </div>
+    <div class="page-num">9</div>
+  </section>
+
+  <!-- 10 · SESSION 4 -->
+  <section class="slide">
+    <div class="sesshead" style="--t:var(--c-truck)"><span class="badge">Session 4</span><h2>Up to the Cloud Castle</h2></div>
+    <div class="sessbody" style="--t:var(--c-truck)">
+      <div class="clay blob"><span style="font-size:120px">🏰</span></div>
+      <div class="clay sesspanel">
+        <p><span class="tag hook">Hook&nbsp;·&nbsp;</span>The big climb — up the Sky Stairs, through the clouds, all the way home!</p>
+        <div class="chal"><span class="dot"></span><p>Cross the bouncy cloud-bridge: Rumble jumps it, Bolt ramps over, or bounce across together.</p></div>
+        <div class="chal"><span class="dot"></span><p>Find Pip's family — a gentle "guess &amp; match" from her clues ("purple wings, swirly tail!").</p></div>
+        <p><span class="tag win">✅ Win&nbsp;·&nbsp;</span>Pip leaps into her family's wings — a big rainbow party in the sky! 🎉</p>
+        <p class="small">🛟 There's no wrong family to pick — Pip's mama always knows her baby.</p>
+      </div>
+    </div>
+    <div class="page-num">10</div>
+  </section>
+
+  <!-- 11 · FRIENDLY NPCS -->
+  <section class="slide">
+    <div class="slide-title"><span class="kicker">Bonus friends</span><h2>Friendly Folks You Might Meet</h2></div>
+    <div class="npcgrid">
+      <div class="clay tinted npc" style="--t:var(--c-dragon)"><div class="face">🐢</div><h3>Mr. Mossback the Turtle</h3><p class="need">His pancake flipper floated into a branch.</p><p class="rew">🎁 Warm berry pancakes!</p></div>
+      <div class="clay tinted npc" style="--t:var(--c-bolt)"><div class="face">🐝</div><h3>Daisy the Honeybee</h3><p class="need">Lost count of her honey jars — help count!</p><p class="rew">🎁 Giggly golden honey.</p></div>
+      <div class="clay tinted npc" style="--t:var(--c-fairy)"><div class="face">🐌</div><h3>Old Wobble the Snail</h3><p class="need">A leaf is stuck on his shell-door.</p><p class="rew">🎁 A calm-down pebble.</p></div>
+      <div class="clay tinted npc" style="--t:var(--c-unicorn)"><div class="face">🦆</div><h3>Pip the Lost Duckling</h3><p class="need">Can't find her favorite splashing puddle.</p><p class="rew">🎁 A "best friend" feather.</p></div>
+      <div class="clay tinted npc" style="--t:var(--c-goblin)"><div class="face">🌳</div><h3>Grandma Willow the Tree</h3><p class="need">Her birds need 5 berries picked.</p><p class="rew">🎁 A snack-growing acorn.</p></div>
+      <div class="clay npc" style="display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--primary) 8%,#fff);border:4px dashed color-mix(in srgb,var(--primary) 35%,#fff)"><p style="font-size:18px;font-style:italic;color:var(--muted)">…and anyone your child dreams up! 💭</p></div>
+    </div>
+    <div class="page-num">11</div>
+  </section>
+
+  <!-- 12 · HOW ROLLING WORKS -->
+  <section class="slide">
+    <div class="slide-title"><span class="kicker">For the kids</span><h2>How Rolling Works</h2></div>
+    <div class="split" style="--t:var(--accent)">
+      <div class="blob"><span>🎯</span></div>
+      <div class="clay panel">
+        <h3 style="color:var(--accent)">It's just like TAG!</h3>
+        <p class="lead">Every creature has a <b>Tag Number</b>. Roll your big dice and try to get that number <b>or higher</b>.</p>
+        <p class="lead">Bolt wants to tag a silly Slime (Tag Number 10). He rolls a <b>14</b> — that's bigger… <b>TAG!</b> The Slime giggles and sits down. 🟢</p>
+        <p class="lead" style="color:var(--muted); font-style:italic">A tiny roll? The Slime wiggles away — so just try again!</p>
+      </div>
+    </div>
+    <div class="page-num">12</div>
+  </section>
+
+  <!-- 13 · DM TIPS -->
+  <section class="slide">
+    <div class="slide-title"><span class="kicker">For the grown-up</span><h2>You've Got This!</h2></div>
+    <div class="clay" style="padding:34px 44px; flex:1; display:flex; flex-direction:column; justify-content:center; gap:18px;">
+      <div class="pin"><span class="ic">🎭</span><div>Use silly voices. Let your kid be the <b>hero</b> of the story.</div></div>
+      <div class="pin"><span class="ic">💛</span><div>No failing — ever. A low roll is a <b>funny moment</b>, not a dead end.</div></div>
+      <div class="pin"><span class="ic">😟</span><div>If they look worried, dial it down: clouds get fluffier, creatures get friendlier.</div></div>
+      <div class="pin"><span class="ic">🎉</span><div>Celebrate <b>every single roll!</b></div></div>
+      <div class="pin"><span class="ic">🎲</span><div>Start with a few <b>d6</b>. Add the shiny <b>d20</b> once they love rolling.</div></div>
+    </div>
+    <div class="page-num">13</div>
+  </section>
+
+  <!-- 14 · CLOSING -->
+  <section class="slide closing">
+    <div class="clay">
+      <h1>Now Go Play!</h1>
+      <div class="emoji-row">🎲&nbsp;🐉&nbsp;🦄&nbsp;🧚&nbsp;🚛&nbsp;⚡</div>
+      <p>Roll the dice. Make a friend. Get Pip home. 💛</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ NAV ============ -->
+<nav id="controls" aria-label="Slide navigation">
+  <button class="navbtn" id="prev" aria-label="Previous slide"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+  <div class="dots" id="dots"></div>
+  <span class="counter" id="counter">1 / 14</span>
+  <button class="navbtn" id="next" aria-label="Next slide"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+</nav>
+
+<script>
+(function(){
+  const stage = document.getElementById('stage');
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const dotsWrap = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  let i = 0;
+
+  // build dots
+  slides.forEach((_, n) => {
+    const b = document.createElement('button');
+    b.className = 'dotnav' + (n===0?' on':'');
+    b.setAttribute('aria-label', 'Go to slide ' + (n+1));
+    b.addEventListener('click', () => go(n));
+    dotsWrap.appendChild(b);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function go(n){
+    i = Math.max(0, Math.min(slides.length-1, n));
+    slides.forEach((s,k)=> s.classList.toggle('active', k===i));
+    dots.forEach((d,k)=> d.classList.toggle('on', k===i));
+    counter.textContent = (i+1) + ' / ' + slides.length;
+  }
+  function next(){ go(i+1); }
+  function prev(){ go(i-1); }
+
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+  document.addEventListener('keydown', e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){ e.preventDefault(); next(); }
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); }
+    else if(e.key==='Home'){ go(0); } else if(e.key==='End'){ go(slides.length-1); }
+  });
+
+  // scale 1280x720 stage to fit viewport
+  function fit(){
+    const s = Math.min(window.innerWidth/1280, window.innerHeight/720);
+    stage.style.transform = 'translate(-50%,-50%) scale(' + s + ')';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+})();
+</script>
+</body>
+</html>

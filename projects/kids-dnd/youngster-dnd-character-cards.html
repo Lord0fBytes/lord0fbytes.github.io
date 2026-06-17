@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Character Cards — Pip the Cloud Dragon Goes Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Comic+Neue:wght@300;400;700&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#4A2A18; --head:#9A3412; --primary:#F97316; --secondary:#FB923C;
+  --line:#C9A892; --soft:#FFF7ED; --bg:#FFF7ED; --bg-warm:#FFE7CC; --bg-rose:#FFE0E8;
+  --c-unicorn:#8B5CF6; --c-fairy:#2563EB; --c-dragon:#16A34A;
+  --c-truck:#F97316; --c-bolt:#F59E0B; --c-goblin:#C2566B; --c-pip:#0EA5E9;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{font-family:'Comic Neue',sans-serif; color:var(--ink); background:#231a12; padding:30px 0;}
+.toolbar{position:fixed; top:16px; right:18px; z-index:100;}
+.btn{font-family:'Baloo 2',cursive; font-weight:700; font-size:15px; color:#fff; background:var(--primary);
+  border:none; border-radius:999px; padding:11px 22px; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,.3);}
+.btn:hover{background:var(--secondary);}
+
+.page{
+  width:8.5in; min-height:11in; margin:0 auto; border-radius:28px;
+  padding:0.5in; box-shadow:0 20px 50px rgba(0,0,0,.4);
+  background:
+    radial-gradient(900px 620px at 80% -10%, var(--bg-warm), transparent 60%),
+    radial-gradient(720px 560px at -8% 110%, var(--bg-rose), transparent 60%),
+    var(--bg);
+}
+.pagehead{text-align:center; margin-bottom:18px;}
+.pagehead .k{font-family:'Cinzel Decorative',serif; font-weight:700; font-size:13px; letter-spacing:.14em; color:var(--primary);}
+.pagehead h1{font-family:'Baloo 2',cursive; font-weight:800; font-size:30px; color:var(--head);}
+.pagehead p{font-size:13px; color:#8A6A56; font-style:italic;}
+
+.grid{display:grid; grid-template-columns:1fr 1fr; gap:0.28in;}
+.card{
+  --t:var(--primary);
+  position:relative; height:2.35in; border-radius:26px; padding:14px 16px;
+  display:flex; flex-direction:column; align-items:center; text-align:center; gap:5px;
+  background:color-mix(in srgb, var(--t) 10%, #fff);
+  border:4px solid color-mix(in srgb, var(--t) 38%, #fff);
+  box-shadow:9px 9px 20px rgba(154,64,14,.16), -7px -7px 16px rgba(255,255,255,.9);
+}
+.card .face{font-size:50px; line-height:1; filter:drop-shadow(2px 3px 3px rgba(0,0,0,.18)); margin-top:2px;}
+.card .name{font-family:'Baloo 2',cursive; font-weight:800; font-size:18px; color:color-mix(in srgb, var(--t) 72%, #3A2416); line-height:1.05;}
+.card .type{font-family:'Cinzel Decorative',serif; font-weight:700; font-size:10px; letter-spacing:.08em; color:var(--t); text-transform:uppercase;}
+.card .move{font-size:14px; line-height:1.3; margin-top:2px;}
+.card .star{position:absolute; top:10px; right:14px; font-size:16px;}
+
+/* make-your-own */
+.card.blank{justify-content:flex-start; border-style:dashed;}
+.card.blank .face{font-size:34px; margin:4px 0 2px;}
+.fline{width:100%; display:flex; align-items:flex-end; gap:6px; margin-top:6px;}
+.fline .l{font-family:'Baloo 2',cursive; font-weight:700; font-size:12px; color:var(--head); white-space:nowrap;}
+.fline .u{flex:1; border-bottom:2px dotted var(--line); height:18px;}
+
+@media print{
+  @page{size:letter portrait; margin:0.4in;}
+  body{background:#fff; padding:0;}
+  .toolbar{display:none;}
+  .page{box-shadow:none; margin:0; width:auto; min-height:auto; padding:0; border-radius:0;}
+  .card{box-shadow:3px 3px 9px rgba(154,64,14,.15); -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+}
+</style>
+</head>
+<body>
+<div class="toolbar"><button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button></div>
+
+<div class="page">
+  <div class="pagehead">
+    <div class="k">My First D&amp;D Adventure</div>
+    <h1>✂️ Hero Cards</h1>
+    <p>Cut out a card for each player to hold during the adventure!</p>
+  </div>
+
+  <div class="grid">
+    <div class="card" style="--t:var(--c-unicorn)"><span class="star">⭐</span>
+      <div class="face">🦄</div><div class="name">Sparkle the Unicorn</div>
+      <div class="type">Unicorn · Healer</div>
+      <div class="move">Heals boo-boos and leaves rainbow trails to follow.</div></div>
+
+    <div class="card" style="--t:var(--c-fairy)"><span class="star">⭐</span>
+      <div class="face">🧚</div><div class="name">Twinkle the Fairy</div>
+      <div class="type">Fairy · Wizard</div>
+      <div class="move">Finds hidden things and opens secret doors.</div></div>
+
+    <div class="card" style="--t:var(--c-dragon)"><span class="star">⭐</span>
+      <div class="face">🐉</div><div class="name">Fizzle the Dragon</div>
+      <div class="type">Dragon · Sorcerer</div>
+      <div class="move">Breathes warm rainbow fire — when he's happy!</div></div>
+
+    <div class="card" style="--t:var(--c-truck)"><span class="star">⭐</span>
+      <div class="face">🚛</div><div class="name">Rumble the Monster Truck</div>
+      <div class="type">Truck · Fighter</div>
+      <div class="move">Goes anywhere and jumps over anything.</div></div>
+
+    <div class="card" style="--t:var(--c-bolt)"><span class="star">⭐</span>
+      <div class="face">⚡</div><div class="name">Bolt the Race Car</div>
+      <div class="type">Race Car · Scout</div>
+      <div class="move">The fastest friend in the whole land.</div></div>
+
+    <div class="card" style="--t:var(--c-pip)"><span class="star">💛</span>
+      <div class="face">🐲</div><div class="name">Pip the Cloud Dragon</div>
+      <div class="type">The friend we help</div>
+      <div class="move">A lost baby dragon who wants to get home to the sky.</div></div>
+
+    <div class="card" style="--t:var(--c-goblin)"><span class="star">👑</span>
+      <div class="face">👑</div><div class="name">The Goblin King</div>
+      <div class="type">Grumpy friend</div>
+      <div class="move">Small, grumpy &amp; a little sad — he just needs a friend.</div></div>
+
+    <div class="card blank" style="--t:var(--primary)">
+      <div class="face">✏️</div><div class="name" style="color:var(--head)">Make Your Own!</div>
+      <div class="fline"><span class="l">Name:</span><span class="u"></span></div>
+      <div class="fline"><span class="l">I am a:</span><span class="u"></span></div>
+      <div class="fline"><span class="l">My move:</span><span class="u"></span></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

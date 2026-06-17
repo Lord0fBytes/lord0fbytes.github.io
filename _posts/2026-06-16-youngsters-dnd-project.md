@@ -1,4 +1,20 @@
-Young Kids DnD 
+## Pip the Cloud Dragon Goes Home
+
+## Game Information
+
+**Campaign Slides:**
+Check out the [game slides](/projects/kids-dnd/youngster-dnd-campaign.html).
+
+**Game Tracking Sheets:**
+Check out the [tracking sheets](youngster-dnd-game-sheets.html) 
+
+**Character Sheets:**
+Check here for the printable [character sheets](youngster-dnd-character-cards.html)
+
+**Game Map:**
+Check here for a printable [game map](youngster-dnd-map.html)
+
+# Campaign Prompts
 ## 1. Campaign skeleton
 ```
 Design a 4-session D&D learning campaign for 5-6 year olds with no prior experience.

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Game Sheets — Pip the Cloud Dragon Goes Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Comic+Neue:wght@300;400;700&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#4A2A18; --head:#9A3412; --primary:#F97316; --secondary:#FB923C;
+  --accent:#2563EB; --line:#C9A892; --soft:#FFF7ED;
+  --bg:#FFF7ED; --bg-warm:#FFE7CC; --bg-rose:#FFE0E8;
+  --c-unicorn:#8B5CF6; --c-fairy:#2563EB; --c-dragon:#16A34A;
+  --c-truck:#F97316; --c-bolt:#F59E0B; --c-goblin:#C2566B;
+  --d-low:#EF6B5E; --d-mid:#F59E0B; --d-high:#16A34A;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:'Comic Neue',sans-serif; color:var(--ink);
+  background:#231a12; padding:30px 0;
+}
+.toolbar{
+  position:fixed; top:16px; right:18px; z-index:100; display:flex; gap:10px;
+}
+.btn{
+  font-family:'Baloo 2',cursive; font-weight:700; font-size:15px; color:#fff;
+  background:var(--primary); border:none; border-radius:999px; padding:11px 22px;
+  cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,.3);
+}
+.btn:hover{background:var(--secondary);}
+
+.sheet{
+  width:8.5in; min-height:11in; margin:0 auto 30px; border-radius:28px;
+  padding:0.55in 0.6in; position:relative; box-shadow:0 20px 50px rgba(0,0,0,.4);
+  background:
+    radial-gradient(900px 620px at 80% -8%, var(--bg-warm), transparent 60%),
+    radial-gradient(720px 560px at -8% 110%, var(--bg-rose), transparent 60%),
+    var(--bg);
+}
+
+/* headers */
+.banner{
+  display:flex; align-items:center; gap:14px; padding:16px 24px; border-radius:18px;
+  color:#fff; margin-bottom:22px;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  box-shadow:8px 8px 18px rgba(249,115,22,.30), -4px -4px 12px rgba(255,255,255,.5);
+}
+.banner.blue{background:linear-gradient(135deg,#3B82F6,var(--accent)); box-shadow:8px 8px 18px rgba(37,99,235,.30), -4px -4px 12px rgba(255,255,255,.5);}
+.banner .em{font-size:40px; line-height:1;}
+.banner .k{font-family:'Cinzel Decorative',serif; font-weight:700; font-size:13px; letter-spacing:.12em; opacity:.9;}
+.banner h1{font-family:'Baloo 2',cursive; font-weight:800; font-size:34px; line-height:1;}
+
+h2{font-family:'Baloo 2',cursive; font-weight:700; color:var(--head); font-size:21px; margin:18px 0 10px;}
+.muted{color:#8A6A56;}
+
+/* fill-in lines */
+.field{display:flex; align-items:flex-end; gap:10px; margin:14px 0;}
+.field .lab{font-family:'Baloo 2',cursive; font-weight:700; font-size:18px; color:var(--head); white-space:nowrap;}
+.field .line{flex:1; border-bottom:2.5px dotted var(--line); height:30px;}
+
+.checks{display:flex; flex-wrap:wrap; gap:10px 22px; margin:8px 0 4px;}
+.chk{display:flex; align-items:center; gap:9px; font-family:'Baloo 2',cursive; font-weight:600; font-size:17px;}
+.box{width:22px; height:22px; border:3px solid var(--line); border-radius:7px;}
+
+.draw{
+  border:3px dashed var(--c-unicorn); border-radius:18px; height:2.5in;
+  display:flex; align-items:flex-start; justify-content:flex-end; padding:12px 16px;
+  color:var(--c-unicorn); font-family:'Baloo 2',cursive; font-weight:700; font-size:16px;
+  background:rgba(139,92,246,.05);
+}
+
+.two{display:grid; grid-template-columns:1fr 1fr; gap:18px 30px;}
+
+/* dice mini */
+.dicebox{border:4px solid color-mix(in srgb,var(--primary) 30%,#fff); border-radius:22px; padding:14px 18px; background:var(--soft);
+  box-shadow:8px 8px 18px rgba(154,64,14,.12), -6px -6px 14px rgba(255,255,255,.85);}
+.drow{display:flex; align-items:center; gap:14px; margin:7px 0;}
+.die{width:50px;height:50px;border-radius:13px;color:#fff;font-family:'Baloo 2',cursive;font-weight:800;font-size:19px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.drow span{font-family:'Baloo 2',cursive; font-weight:600; font-size:16px;}
+
+/* treasure stars */
+.stars{display:flex; gap:14px; flex-wrap:wrap; margin-top:6px;}
+.star{width:46px;height:46px;border:3px dashed #E0A93A;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#E0A93A;font-size:22px;}
+
+/* DM sheet */
+.golden{border-left:6px solid var(--primary); padding:6px 0 6px 16px; margin:10px 0; font-size:16px;}
+.golden b{color:var(--head); font-family:'Baloo 2',cursive;}
+.prompts{background:rgba(37,99,235,.06); border:4px solid #BBD0F5; border-radius:22px; padding:14px 18px;
+  box-shadow:8px 8px 18px rgba(37,99,235,.10), -6px -6px 14px rgba(255,255,255,.85);}
+.prompts p{font-size:16px; margin:6px 0;}
+.prompts .q{font-family:'Baloo 2',cursive; font-weight:700; color:var(--accent);}
+
+.cast{display:grid; grid-template-columns:1fr 1fr; gap:7px 22px; font-size:15px; margin-top:4px;}
+.cast div{display:flex; gap:9px; align-items:baseline;}
+.cast .nm{font-family:'Baloo 2',cursive; font-weight:700;}
+
+table.sessions{width:100%; border-collapse:collapse; margin-top:6px; font-size:14.5px;}
+table.sessions th{font-family:'Baloo 2',cursive; color:#fff; background:var(--accent); padding:8px 10px; text-align:left; font-size:13px;}
+table.sessions th:first-child{border-top-left-radius:10px;}
+table.sessions th:last-child{border-top-right-radius:10px;}
+table.sessions td{padding:9px 10px; border-bottom:2px solid #F0E3D6; vertical-align:top;}
+table.sessions tr:nth-child(even) td{background:var(--soft);}
+table.sessions .s{font-family:'Baloo 2',cursive; font-weight:700; color:var(--head); white-space:nowrap;}
+
+.foot{position:absolute; bottom:0.4in; left:0; right:0; text-align:center; font-size:12px; color:#B79A85; font-style:italic;}
+
+@media print{
+  @page{size:letter portrait; margin:0.4in;}
+  body{background:#fff; padding:0;}
+  .toolbar{display:none;}
+  .sheet{box-shadow:none; margin:0; width:auto; min-height:auto; padding:0; border-radius:0; page-break-after:always;}
+  .sheet:last-child{page-break-after:auto;}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+</div>
+
+<!-- ============ SHEET 1 · HERO SHEET ============ -->
+<div class="sheet">
+  <div class="banner">
+    <span class="em">🛡️</span>
+    <div><div class="k">My First D&amp;D Adventure</div><h1>My Hero!</h1></div>
+  </div>
+
+  <div class="two">
+    <div>
+      <div class="field"><span class="lab">My hero's name:</span><span class="line"></span></div>
+      <div class="field"><span class="lab">Played by:</span><span class="line"></span></div>
+
+      <h2>I am a…</h2>
+      <div class="field"><span class="line"></span></div>
+      <p class="muted" style="font-size:13px">(unicorn, fairy, dragon, bunny, monster truck…)</p>
+
+      <h2>I am good at…</h2>
+      <div class="checks">
+        <label class="chk"><span class="box"></span>Healer</label>
+        <label class="chk"><span class="box"></span>Wizard</label>
+        <label class="chk"><span class="box"></span>Scout</label>
+        <label class="chk"><span class="box"></span>Fighter</label>
+      </div>
+    </div>
+
+    <div>
+      <h2 style="margin-top:0">Draw your hero!</h2>
+      <div class="draw">✏️ here</div>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:6px">
+    <div>
+      <h2>I carry…</h2>
+      <div class="field"><span class="line"></span></div>
+      <p class="muted" style="font-size:13px">(a wand, a sword, a bow, a snack backpack…)</p>
+    </div>
+    <div>
+      <h2>How big am I?</h2>
+      <div class="checks">
+        <label class="chk"><span class="box"></span>Tiny</label>
+        <label class="chk"><span class="box"></span>Regular</label>
+        <label class="chk"><span class="box"></span>Really tall</label>
+      </div>
+    </div>
+  </div>
+
+  <h2>⭐ My special move:</h2>
+  <div class="field"><span class="line"></span></div>
+
+  <div class="two" style="margin-top:14px">
+    <div class="dicebox">
+      <div style="font-family:'Baloo 2',cursive;font-weight:700;color:var(--head);font-size:16px;margin-bottom:4px">🎲 When I roll the dice:</div>
+      <div class="drow"><div class="die" style="background:linear-gradient(135deg,#F2887C,var(--d-low))">1-2</div><span>Oops — try again!</span></div>
+      <div class="drow"><div class="die" style="background:linear-gradient(135deg,#FBBF24,var(--d-mid))">3-4</div><span>I did it — a little tricky!</span></div>
+      <div class="drow"><div class="die" style="background:linear-gradient(135deg,#4ADE80,var(--d-high))">5-6</div><span>I did it super easily!</span></div>
+    </div>
+    <div>
+      <h2 style="margin-top:0">🏆 Treasures I found:</h2>
+      <p class="muted" style="font-size:13px">Color a star each time you help someone — then count them!</p>
+      <div class="stars">
+        <div class="star">★</div><div class="star">★</div><div class="star">★</div>
+        <div class="star">★</div><div class="star">★</div><div class="star">★</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">Pip the Cloud Dragon Goes Home · print one Hero Sheet for each child</div>
+</div>
+
+<!-- ============ SHEET 2 · DM QUICK SHEET ============ -->
+<div class="sheet">
+  <div class="banner blue">
+    <span class="em">🎲</span>
+    <div><div class="k">For the Grown-Up</div><h1>Game Leader Cheat Sheet</h1></div>
+  </div>
+
+  <div class="two">
+    <div>
+      <h2 style="margin-top:0">The only rule you need</h2>
+      <div class="dicebox">
+        <div style="font-family:'Baloo 2',cursive;font-weight:700;color:var(--head);font-size:15px;margin-bottom:4px">Roll 1 d6 when a hero tries something tricky:</div>
+        <div class="drow"><div class="die" style="background:linear-gradient(135deg,#F2887C,var(--d-low))">1-2</div><span>"Oops! Let's try a different way."</span></div>
+        <div class="drow"><div class="die" style="background:linear-gradient(135deg,#FBBF24,var(--d-mid))">3-4</div><span>"You did it — it was a bit tricky!"</span></div>
+        <div class="drow"><div class="die" style="background:linear-gradient(135deg,#4ADE80,var(--d-high))">5-6</div><span>"WOW — you did it easily!"</span></div>
+      </div>
+      <p class="golden" style="margin-top:12px"><b>🛟 Safety net:</b> nobody can lose. A low roll = try again or a friend helps. After two tries, it just works.</p>
+    </div>
+
+    <div>
+      <h2 style="margin-top:0">Golden rules</h2>
+      <p class="golden"><b>🎭 Silly voices.</b> Let your kid be the hero.</p>
+      <p class="golden"><b>💛 Say "yes, and…"</b> to whatever they imagine.</p>
+      <p class="golden"><b>🎉 Celebrate every roll</b> — even the low ones (they're funny!).</p>
+      <p class="golden"><b>😟 If they look worried,</b> make everything fluffier & friendlier.</p>
+    </div>
+  </div>
+
+  <h2>🤔 Stuck? Just say one of these:</h2>
+  <div class="prompts">
+    <p><span class="q">"What do you want to do?"</span> — let them decide.</p>
+    <p><span class="q">"Want to roll the dice to try?"</span> — turns any idea into a fun moment.</p>
+    <p>Offer choices: <span class="q">"You could climb it, go around it, or… something else?"</span></p>
+    <p><span class="q">"What does your hero see / hear / smell?"</span> — pull them into the world.</p>
+  </div>
+
+  <h2>The cast &amp; their special moves</h2>
+  <div class="cast">
+    <div><span class="nm" style="color:var(--c-unicorn)">🦄 Sparkle:</span> heals boo-boos, leaves rainbow trails</div>
+    <div><span class="nm" style="color:var(--c-fairy)">🧚 Twinkle:</span> finds hidden things, opens doors</div>
+    <div><span class="nm" style="color:var(--c-dragon)">🐉 Fizzle:</span> rainbow fire — when he's happy!</div>
+    <div><span class="nm" style="color:var(--c-truck)">🚛 Rumble:</span> goes anywhere, jumps anything</div>
+    <div><span class="nm" style="color:var(--c-bolt)">⚡ Bolt:</span> fastest friend in the land</div>
+    <div><span class="nm" style="color:var(--c-goblin)">👑 Goblin King:</span> grumpy NPC — just needs a friend</div>
+  </div>
+
+  <h2>The 4 sessions at a glance</h2>
+  <table class="sessions">
+    <tr><th>Session</th><th>Where</th><th>Goal</th><th>You win when…</th></tr>
+    <tr><td class="s">1 · Crying Cloud</td><td>Mossy Meadow</td><td>Comfort lost Pip &amp; find her floaty feather</td><td>Pip smiles; feather points onward</td></tr>
+    <tr><td class="s">2 · Giggle River</td><td>Tickle River</td><td>Get everyone across the water</td><td>All reach Tall-Tree Hill</td></tr>
+    <tr><td class="s">3 · Goblin's Star</td><td>The cozy cave</td><td>Befriend the Goblin King for the star</td><td>He smiles &amp; the Sky Stairs glow</td></tr>
+    <tr><td class="s">4 · Cloud Castle</td><td>Up in the sky</td><td>Climb home &amp; find Pip's family</td><td>Happy reunion — rainbow party! 🎉</td></tr>
+  </table>
+
+  <div class="foot">Keep this sheet next to you while you play — you won't need anything else.</div>
+</div>
+
+</body>
+</html>
