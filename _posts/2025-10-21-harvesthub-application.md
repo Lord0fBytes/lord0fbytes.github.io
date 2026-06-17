@@ -14,7 +14,7 @@ our family shopping list kept falling apart.
 
 As our needs changed, most apps either felt too simple to be useful or too rigid to adapt. I wanted something that could grow with us — **but also something structured enough to eventually plug into AI systems without duct tape**.
 
-That idea became **Harvest Hub**.
+That idea became **Harvest Hub**. I have built several shopping list apps in the past, but they never stand up for one reason or another (most it's because of the tech stack).
 
 ---
 
