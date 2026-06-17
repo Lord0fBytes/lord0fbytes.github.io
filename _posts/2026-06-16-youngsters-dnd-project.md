@@ -6,13 +6,13 @@
 Check out the [game slides](/projects/kids-dnd/youngster-dnd-campaign.html).
 
 **Game Tracking Sheets:**
-Check out the [tracking sheets](youngster-dnd-game-sheets.html) 
+Check out the [tracking sheets](/projects/kids-dnd/youngster-dnd-game-sheets.html) 
 
 **Character Sheets:**
-Check here for the printable [character sheets](youngster-dnd-character-cards.html)
+Check here for the printable [character sheets](/projects/kids-dnd/youngster-dnd-character-cards.html)
 
 **Game Map:**
-Check here for a printable [game map](youngster-dnd-map.html)
+Check here for a printable [game map](/projects/kids-dnd/youngster-dnd-map.html)
 
 # Campaign Prompts
 
