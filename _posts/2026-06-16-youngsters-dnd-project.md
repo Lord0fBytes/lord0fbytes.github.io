@@ -1,3 +1,11 @@
+---
+layout: post
+tags: [project, digital, dnd]
+title: Teaching D&D to Youngsters
+categories: digital
+permalink: /:categories/:slug/
+---
+
 ## Chapter 1: Pip the Cloud Dragon Goes Home
 
 ## Game Information
