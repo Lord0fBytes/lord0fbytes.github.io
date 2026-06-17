@@ -15,6 +15,10 @@ Check here for the printable [character sheets](youngster-dnd-character-cards.ht
 Check here for a printable [game map](youngster-dnd-map.html)
 
 # Campaign Prompts
+
+<details markdown="1">
+<summary>Show the campaign prompts</summary>
+
 ## 1. Campaign skeleton
 ```
 Design a 4-session D&D learning campaign for 5-6 year olds with no prior experience.
@@ -60,3 +64,5 @@ Flag anything that is: scary, frustrating, too complex, or could upset a child.
 For each issue, suggest a concrete rewrite. Also check that no content requires
 reading, writing, or math beyond counting on fingers.
 ```
+
+</details>
