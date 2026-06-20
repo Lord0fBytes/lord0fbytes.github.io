@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HN Top 10 — Comment Sentiment</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface-hover: #222633;
+    --border: #2a2e3d;
+    --text: #e2e4ea;
+    --text-muted: #8b90a0;
+    --accent: #ff6600;
+    --accent-dim: rgba(255, 102, 0, 0.12);
+    --positive: #34d399;
+    --positive-bg: rgba(52, 211, 153, 0.1);
+    --negative: #f87171;
+    --negative-bg: rgba(248, 113, 113, 0.1);
+    --neutral: #8b90a0;
+    --neutral-bg: rgba(139, 144, 160, 0.08);
+    --radius: 10px;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.25rem;
+  }
+
+  header h1 span { color: var(--accent); }
+
+  header p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  button {
+    font-family: var(--font);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  button:hover { background: var(--surface-hover); border-color: #3a3f52; }
+
+  button.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  button.primary:hover { filter: brightness(1.1); }
+
+  button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .summary-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    text-align: center;
+  }
+
+  .summary-card .label {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+  }
+
+  .summary-card .value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: var(--mono);
+  }
+
+  .story-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 0.75rem;
+    transition: border-color 0.15s;
+  }
+
+  .story-card:hover { border-color: #3a3f52; }
+
+  .story-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .story-rank {
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    min-width: 1.5rem;
+    text-align: right;
+    padding-top: 2px;
+  }
+
+  .story-content { flex: 1; min-width: 0; }
+
+  .story-title {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.25rem;
+  }
+
+  .story-title a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .story-title a:hover { color: var(--accent); }
+
+  .story-meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .story-meta .domain {
+    color: var(--accent);
+    opacity: 0.8;
+  }
+
+  .sentiment-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+
+  .sentiment-badge.positive { background: var(--positive-bg); color: var(--positive); }
+  .sentiment-badge.negative { background: var(--negative-bg); color: var(--negative); }
+  .sentiment-badge.neutral  { background: var(--neutral-bg);  color: var(--neutral);  }
+
+  .sentiment-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 0.875rem;
+    padding-top: 0.875rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .sentiment-stat {
+    text-align: center;
+  }
+
+  .sentiment-stat .stat-label {
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 0.125rem;
+  }
+
+  .sentiment-stat .stat-value {
+    font-family: var(--mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .score-bar-wrap {
+    height: 4px;
+    background: var(--bg);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 0.875rem;
+  }
+
+  .score-bar {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .score-bar.positive { background: var(--positive); }
+  .score-bar.negative { background: var(--negative); }
+  .score-bar.neutral  { background: var(--neutral); }
+
+  .summary-section {
+    margin-top: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+
+  .summary-section .summary-label {
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+  }
+
+  .summary-section .summary-text {
+    color: var(--text-muted);
+  }
+
+  .summary-section.article-summary {
+    border-left: 2px solid var(--accent);
+  }
+
+  .summary-section.comment-summary {
+    border-left: 2px solid var(--border);
+  }
+
+  .summary-section .summary-loading {
+    color: var(--text-muted);
+    font-style: italic;
+    opacity: 0.6;
+  }
+
+  .loading-state {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: var(--text-muted);
+  }
+
+  .loading-state .spinner {
+    width: 28px;
+    height: 28px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 1rem;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-state p { font-size: 0.875rem; }
+
+  .progress-text {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-top: 0.5rem;
+  }
+
+  .error-msg {
+    text-align: center;
+    padding: 2rem;
+    color: var(--negative);
+    font-size: 0.875rem;
+  }
+
+  .timestamp {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 1rem 0.75rem; }
+    .summary-bar { grid-template-columns: 1fr; }
+    .sentiment-detail { grid-template-columns: 1fr; gap: 0.375rem; }
+    .story-header { flex-direction: column; gap: 0.25rem; }
+    .story-rank { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>HN <span>Top 10</span> — Comment Sentiment</h1>
+    <p>Sentiment analysis of today's top Hacker News stories</p>
+  </header>
+
+  <div class="controls">
+    <button class="primary" id="fetchBtn" onclick="run()">Fetch Stories</button>
+    <button id="expandBtn" onclick="toggleExpand()" style="display:none">Expand All</button>
+  </div>
+
+  <div class="summary-bar" id="summary" style="display:none">
+    <div class="summary-card">
+      <div class="label">Positive</div>
+      <div class="value" id="sumPos" style="color:var(--positive)">0</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Neutral</div>
+      <div class="value" id="sumNeu" style="color:var(--neutral)">0</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Negative</div>
+      <div class="value" id="sumNeg" style="color:var(--negative)">0</div>
+    </div>
+  </div>
+
+  <div id="results">
+    <div class="loading-state" id="loading" style="display:none">
+      <div class="spinner"></div>
+      <p>Fetching top stories…</p>
+      <div class="progress-text" id="progress"></div>
+    </div>
+    <div id="storyList"></div>
+  </div>
+
+  <div class="timestamp" id="ts"></div>
+</div>
+
+<script>
+// ── Sentiment lexicon (compressed positive / negative word lists) ──
+const POS = new Set([
+  "good","great","awesome","excellent","amazing","love","wonderful","fantastic",
+  "brilliant","best","happy","beautiful","perfect","helpful","useful","impressive",
+  "innovative","exciting","powerful","smart","elegant","clean","fast","solid",
+  "reliable","intuitive","enjoy","enjoying","enjoyed","thank","thanks","agree",
+  "nice","cool","interesting","fascinating","insightful","thoughtful","well",
+  "quality","efficient","effective","smooth","robust","secure","safe","clear",
+  "easy","simple","fun","productive","creative","genius","superb","outstanding",
+  "remarkable","phenomenal","incredible","terrific","marvelous","splendid",
+  "delightful","glad","pleased","satisfied","comfortable","convenient","accessible",
+  "flexible","versatile","capable","reliable","stable","mature","refined",
+  "polished","well-designed","well-written","well-done","improved","improvement",
+  "progress","success","successful","win","winner","winning","benefit","beneficial",
+  "advantage","valuable","worth","worthwhile","recommend","recommended","support",
+  "supported","supportive","encourage","encouraging","hope","hopeful","promising",
+  "optimistic","positive","constructive","informative","educational","enlightening",
+  "accurate","precise","correct","right","true","valid","legitimate","reasonable",
+  "fair","just","ethical","responsible","sustainable","viable","practical",
+  "realistic","solution","solve","solved","fix","fixed","resolved","breakthrough",
+  "revolutionary","game-changer","gamechanger","upgrade","upgraded","top-notch",
+  "first-rate","world-class","state-of-the-art","cutting-edge","leading","pioneering",
+  "groundbreaking","transformative","significant","important","essential","crucial",
+  "vital","invaluable","priceless","treasure","gem","masterpiece","legendary",
+  "hero","champion","star","rockstar","mvp","goat","based","chad","blessed",
+  "lucky","grateful","appreciate","appreciated","respect","admire","inspire",
+  "inspired","inspiring","motivating","empowering","uplifting","refreshing",
+  "reassuring","comforting","satisfying","fulfilling","rewarding","gratifying",
+  "pleasant","lovely","charming","delightful","witty","clever","brilliant",
+  "sharp","keen","astute","savvy","shrewd","wise","sage","enlightened",
+  "knowledgeable","competent","skilled","talented","gifted","capable","able"
+]);
+const NEG = new Set([
+  "bad","terrible","awful","horrible","hate","worst","poor","ugly","stupid",
+  "dumb","broken","useless","annoying","frustrating","disappointing","disappointed",
+  "boring","slow","ugly","confusing","confused","complicated","complex","difficult",
+  "hard","painful","suffer","sucks","suck","garbage","trash","junk","scam",
+  "fraud","hack","hacked","hacky","mess","messy","disaster","catastrophe",
+  "fail","failure","failed","failing","bug","buggy","crash","crashed","crashing",
+  "error","problem","issue","trouble","wrong","worse","worsen","decline",
+  "declining","degrade","degrading","deteriorate","corrupt","corrupted",
+  "toxic","dangerous","risky","risky","threat","threatening","harmful",
+  "destructive","damaging","devastating","ruin","ruined","destroy","destroyed",
+  "lost","lose","losing","loser","pathetic","ridiculous","absurd","insane",
+  "crazy","insane","ludicrous","preposterous","outrageous","unacceptable",
+  "inexcusable","unforgivable","shame","shameful","embarrassing","embarrassed",
+  "humiliating","degrading","offensive","insulting","disrespectful","rude",
+  "hostile","aggressive","violent","abusive","harassment","bullying","discriminate",
+  "exploit","exploitative","manipulative","deceptive","misleading","dishonest",
+  "corrupt","unethical","immoral","unfair","unjust","biased","prejudiced",
+  "ignorant","naive","foolish","careless","reckless","negligent","incompetent",
+  "unqualified","unprofessional","amateur","subpar","mediocre","inferior",
+  "lacking","insufficient","inadequate","deficient","flawed","defective",
+  "faulty","broken","malfunction","unstable","unreliable","unpredictable",
+  "inconsistent","unreliable","questionable","doubtful","suspect","suspicious",
+  "concern","concerning","worry","worrying","alarming","disturbing","shocking",
+  "appalling","horrifying","terrifying","scary","frightening","terrifying",
+  "nightmare","hell","hellish","miserable","painful","agonizing","excruciating",
+  "unbearable","intolerable","unpleasant","dreadful","gloomy","grim","bleak",
+  "hopeless","desperate","tragic","sad","depressing","heartbreaking","devastating",
+  "overwhelming","exhausting","draining","tiring","tedious","monotonous","dull",
+  "uninteresting","bland","tasteless","lifeless","soulless","empty","hollow",
+  "shallow","superficial","fake","artificial","synthetic","counterfeit","phony",
+  "scam","ponzi","ponzi-scheme","fraud","fraudulent","ripoff","rip-off","overpriced",
+  "overrated","overhyped","bloat","bloated","clunky","chunky","laggy","lagging",
+  "glitchy","glitch","outage","downtime","unresponsive","dead","dying","deadly",
+  "lethal","fatal","toxic","poison","poisonous","contaminated","infected",
+  "disease","plague","curse","curse","damn","damned","hell","heck","crap",
+  "shit","shitty","ass","arse","bastard","bitch","dick","jerk","idiot",
+  "moron","dumbass","asshole","bullshit","wtf","smh","facepalm","ugh",
+  "gross","disgusting","repulsive","revolting","nauseating","vile","foul",
+  "nasty","mean","cruel","brutal","savage","vicious","fierce","violent",
+  "rage","angry","furious","enraged","livid","outraged","irritated","annoyed",
+  "frustrated","exasperated","fed-up","disgusted","sick","tired","bored",
+  "annoyed","miffed","pissed","ticked","salty","triggered","coping","seething"
+]);
+
+// Negation words that flip sentiment
+const NEGATION = new Set(["not","no","never","neither","nobody","nothing","nowhere","nor","hardly","barely","scarcely","don't","doesn't","didn't","won't","wouldn't","couldn't","shouldn't","isn't","aren't","wasn't","weren't","can't","cannot"]);
+
+function analyzeSentiment(text) {
+  if (!text) return { score: 0, pos: 0, neg: 0, total: 0 };
+  const words = text.toLowerCase().replace(/[^a-z'\s-]/g, '').split(/\s+/).filter(Boolean);
+  let pos = 0, neg = 0, negated = false;
+  for (let i = 0; i < words.length; i++) {
+    const w = words[i];
+    if (NEGATION.has(w)) { negated = true; continue; }
+    if (POS.has(w)) { negated ? neg++ : pos++; negated = false; }
+    else if (NEG.has(w)) { negated ? pos++ : neg++; negated = false; }
+    else { negated = false; }
+  }
+  const total = pos + neg;
+  const score = total === 0 ? 0 : (pos - neg) / total;
+  return { score, pos, neg, total };
+}
+
+function classify(score) {
+  if (score > 0.15) return 'positive';
+  if (score < -0.15) return 'negative';
+  return 'neutral';
+}
+
+// ── Extractive Summarization ──
+const STOP_WORDS = new Set("a about above after again against all am an and any are aren't as at be because been before being below between both but by can't cannot could couldn't did didn't do does doesn't doing don't down during each few for from further get got had hadn't has hasn't have haven't having he he'd he'll he's her here here's hers herself him himself his how how's i i'd i'll i'm i've if in into is isn't it it's its itself let's me more most mustn't my myself no nor not of off on once only or other ought our ours ourselves out over own same shan't she she'd she'll she's should shouldn't so some such than that that's the their theirs them themselves then there there's these they they'd they'll they're they've this those through to too under until up upon us very was wasn't we we'd we'll we're we're were weren't what what's when when's where where's which while who who's whom why why's will with won't would wouldn't you you'd you'll you're you've your yours yourself yourselves the a an is are was were be been being have has had do does did will would shall should can could may might".split(' '));
+
+function splitSentences(text) {
+  return text
+    .replace(/\s+/g, ' ')
+    .split(/(?<=[.!?])\s+(?=[A-Z""'])|(?<=\n)\s*(?=[A-Z])|(?<=[.!?])\s*$/)
+    .map(s => s.trim())
+    .filter(s => s.length > 25 && s.length < 600);
+}
+
+function extractiveSummary(text, maxSentences) {
+  if (!text || text.length < 80) return text || '';
+  const sentences = splitSentences(text);
+  if (sentences.length <= maxSentences) return sentences.join(' ');
+
+  // Build word frequency map (excluding stop words)
+  const wordFreq = {};
+  const allWords = text.toLowerCase().replace(/[^a-z'\s-]/g, '').split(/\s+/);
+  for (const w of allWords) {
+    if (w.length > 2 && !STOP_WORDS.has(w)) {
+      wordFreq[w] = (wordFreq[w] || 0) + 1;
+    }
+  }
+
+  // Score each sentence
+  const scored = sentences.map((sentence, idx) => {
+    const words = sentence.toLowerCase().replace(/[^a-z'\s-]/g, '').split(/\s+/);
+    let freqScore = 0;
+    for (const w of words) {
+      if (wordFreq[w]) freqScore += wordFreq[w];
+    }
+    // Normalize by length so we don't just pick long sentences
+    const wordCount = words.length || 1;
+    const density = freqScore / wordCount;
+    // Position bonus: first and early sentences matter more
+    const posBoost = idx < 3 ? 1.4 : idx < 6 ? 1.1 : 1.0;
+    // Slight penalty for very short or very long sentences
+    const lenPenalty = (wordCount < 8 || wordCount > 50) ? 0.7 : 1.0;
+    return { sentence, idx, score: density * posBoost * lenPenalty };
+  });
+
+  scored.sort((a, b) => b.score - a.score);
+  // Pick top N, then re-sort by original position for readability
+  const picked = scored.slice(0, maxSentences).sort((a, b) => a.idx - b.idx);
+  return picked.map(p => p.sentence).join(' ');
+}
+
+function summarizeComments(comments, maxSentences) {
+  if (!comments || comments.length === 0) return '';
+  return extractiveSummary(comments.join(' '), maxSentences);
+}
+
+// Fetch article text via Jina Reader (returns readable markdown)
+async function fetchArticleText(url, timeoutMs) {
+  if (!url) return '';
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs || 10000);
+  try {
+    const proxyUrl = 'https://r.jina.ai/' + encodeURIComponent(url);
+    const r = await fetch(proxyUrl, {
+      signal: controller.signal,
+      headers: { 'Accept': 'text/plain' }
+    });
+    if (!r.ok) return '';
+    const text = await r.text();
+    // Strip markdown formatting noise, keep readable text
+    return text.replace(/[#*_~`>\[\]()!]/g, ' ').replace(/\[.*?\]\(.*?\)/g, '').replace(/\s+/g, ' ').trim();
+  } catch {
+    return '';
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function domainOf(url) {
+  if (!url) return null;
+  try { return new URL(url).hostname.replace('www.', ''); } catch { return null; }
+}
+
+// ── HN API ──
+const API = 'https://hacker-news.firebaseio.com/v0';
+
+async function fetchJSON(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return r.json();
+}
+
+async function run() {
+  const btn = document.getElementById('fetchBtn');
+  const loading = document.getElementById('loading');
+  const progress = document.getElementById('progress');
+  const storyList = document.getElementById('storyList');
+  const summary = document.getElementById('summary');
+  const expandBtn = document.getElementById('expandBtn');
+
+  btn.disabled = true;
+  btn.textContent = 'Loading…';
+  loading.style.display = '';
+  storyList.innerHTML = '';
+  summary.style.display = 'none';
+  expandBtn.style.display = 'none';
+
+  try {
+    progress.textContent = 'Fetching top stories…';
+    const topIds = await fetchJSON(`${API}/topstories.json`);
+    const ids = topIds.slice(0, 10);
+
+    const stories = [];
+    for (let i = 0; i < ids.length; i++) {
+      progress.textContent = `Loading story ${i + 1} of ${ids.length}…`;
+      const story = await fetchJSON(`${API}/item/${ids[i]}.json`);
+      stories.push(story);
+    }
+
+    progress.textContent = 'Fetching articles & analyzing comments…';
+
+    const results = [];
+    for (let i = 0; i < stories.length; i++) {
+      const s = stories[i];
+      progress.textContent = `Story ${i + 1}/${stories.length}: ${s.title?.slice(0, 40)}…`;
+      const commentIds = (s.kids || []).slice(0, 50); // top 50 comments
+      const comments = [];
+
+      if (commentIds.length > 0) {
+        // Fetch comments in batches of 10
+        for (let j = 0; j < commentIds.length; j += 10) {
+          const batch = commentIds.slice(j, j + 10);
+          const fetched = await Promise.all(
+            batch.map(id => fetchJSON(`${API}/item/${id}.json`).catch(() => null))
+          );
+          for (const c of fetched) {
+            if (c && c.text) {
+              // Strip HTML tags for analysis
+              const plain = c.text.replace(/<[^>]*>/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&nbsp;/g, ' ');
+              comments.push(plain);
+            }
+          }
+        }
+      }
+
+      const allText = comments.join(' ');
+      const sentiment = analyzeSentiment(allText);
+      const label = classify(sentiment.score);
+
+      // Fetch article text and generate summaries
+      let articleSummary = '';
+      let commentSummary = '';
+      if (s.url) {
+        const articleText = await fetchArticleText(s.url, 8000);
+        articleSummary = extractiveSummary(articleText, 3);
+      }
+      commentSummary = summarizeComments(comments, 2);
+
+      results.push({
+        rank: i + 1,
+        title: s.title,
+        url: s.url || `https://news.ycombinator.com/item?id=${s.id}`,
+        hnUrl: `https://news.ycombinator.com/item?id=${s.id}`,
+        domain: domainOf(s.url),
+        score: s.score,
+        descendants: s.descendants || 0,
+        by: s.by,
+        commentCount: comments.length,
+        sentiment,
+        label,
+        articleSummary: articleSummary || 'Article text could not be extracted.',
+        commentSummary: commentSummary || (comments.length === 0 ? 'No comments to summarize.' : 'Could not generate summary.')
+      });
+    }
+
+    loading.style.display = 'none';
+    progress.textContent = '';
+
+    // Summary counts
+    let posC = 0, neuC = 0, negC = 0;
+    results.forEach(r => {
+      if (r.label === 'positive') posC++;
+      else if (r.label === 'negative') negC++;
+      else neuC++;
+    });
+
+    document.getElementById('sumPos').textContent = posC;
+    document.getElementById('sumNeu').textContent = neuC;
+    document.getElementById('sumNeg').textContent = negC;
+    summary.style.display = '';
+    expandBtn.style.display = 'none'; // summaries are short, no need to expand
+
+    // Render stories
+    storyList.innerHTML = results.map(r => {
+      const pct = r.sentiment.total === 0 ? 50 : Math.round(((r.sentiment.score + 1) / 2) * 100);
+      const barColor = r.label === 'positive' ? 'positive' : r.label === 'negative' ? 'negative' : 'neutral';
+      const domainStr = r.domain ? `<span class="domain">(${r.domain})</span>` : '';
+
+      const articleBlock = r.articleSummary
+        ? `<div class="summary-section article-summary">
+             <div class="summary-label">Article Summary</div>
+             <div class="summary-text">${escapeHtml(r.articleSummary)}</div>
+           </div>`
+        : '';
+
+      const commentBlock = r.commentSummary
+        ? `<div class="summary-section comment-summary">
+             <div class="summary-label">Comment Summary</div>
+             <div class="summary-text">${escapeHtml(r.commentSummary)}</div>
+           </div>`
+        : '';
+
+      return `
+        <div class="story-card" id="story-${r.rank}">
+          <div class="story-header">
+            <div class="story-rank">${r.rank}.</div>
+            <div class="story-content">
+              <div class="story-title"><a href="${escapeAttr(r.url)}" target="_blank" rel="noopener">${escapeHtml(r.title)}</a></div>
+              <div class="story-meta">
+                <span>▲ ${r.score}</span>
+                <span>·</span>
+                <span>${r.descendants} comments</span>
+                <span>·</span>
+                <span>${r.commentCount} analyzed</span>
+                <span>·</span>
+                <a href="${r.hnUrl}" target="_blank" rel="noopener" style="color:var(--text-muted);text-decoration:none">HN ↗</a>
+                ${domainStr}
+                <span class="sentiment-badge ${r.label}">${sentimentIcon(r.label)} ${r.label} (${r.sentiment.score > 0 ? '+' : ''}${r.sentiment.score.toFixed(2)})</span>
+              </div>
+              ${articleBlock}
+              ${commentBlock}
+              <div class="score-bar-wrap">
+                <div class="score-bar ${barColor}" style="width:${pct}%"></div>
+              </div>
+              <div class="sentiment-detail">
+                <div class="sentiment-stat">
+                  <div class="stat-label">Positive</div>
+                  <div class="stat-value" style="color:var(--positive)">${r.sentiment.pos}</div>
+                </div>
+                <div class="sentiment-stat">
+                  <div class="stat-label">Neutral Words</div>
+                  <div class="stat-value" style="color:var(--neutral)">${r.sentiment.total === 0 ? '—' : Math.round(((r.commentCount * 50 - r.sentiment.total) / (r.commentCount * 50)) * 100) + '%'}</div>
+                </div>
+                <div class="sentiment-stat">
+                  <div class="stat-label">Negative</div>
+                  <div class="stat-value" style="color:var(--negative)">${r.sentiment.neg}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+
+    document.getElementById('ts').textContent = `Last updated: ${new Date().toLocaleString()}`;
+
+  } catch (err) {
+    loading.style.display = 'none';
+    storyList.innerHTML = `<div class="error-msg">Failed to load: ${escapeHtml(err.message)}</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Fetch Stories';
+  }
+}
+
+function sentimentIcon(label) {
+  if (label === 'positive') return '↑';
+  if (label === 'negative') return '↓';
+  return '→';
+}
+
+function escapeHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function escapeAttr(s) {
+  return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+let expanded = false;
+function toggleExpand() {
+  const previews = document.querySelectorAll('.comment-preview');
+  expanded = !expanded;
+  previews.forEach(p => {
+    p.style.maxHeight = expanded ? 'none' : '4.5em';
+  });
+  document.getElementById('expandBtn').textContent = expanded ? 'Collapse All' : 'Expand All';
+}
+
+// Auto-run on load
+window.addEventListener('DOMContentLoaded', run);
+</script>
+
+</body>
+</html>
